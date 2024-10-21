@@ -67,4 +67,5 @@ export class JuegosPage implements OnInit {
       );
     }
   }
+
 }

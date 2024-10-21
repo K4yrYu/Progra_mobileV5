@@ -9,6 +9,7 @@ import { ManejodbService } from 'src/app/services/manejodb.service';
 })
 export class CarritoPage implements OnInit {
   productosDisponibles: any[] = [];
+  productosNODisponibles: any[] = [];
   productosSinStock: any[] = [];
   productos: any[] = [];
   idVentaActiva: number | null = null;
@@ -55,13 +56,16 @@ export class CarritoPage implements OnInit {
     try {
       this.productos = await this.bd.obtenerCarroPorUsuario(this.idVentaActiva);
   
-      this.productosDisponibles = this.productos;
+      // Filtrar productos disponibles y sin stock
+      this.productosDisponibles = this.productos.filter(p => p.cantidad_d > 0);
       this.productosSinStock = this.productos.filter(p => p.cantidad_d === 0);
-  
+
       this.mostrarSinStock = this.productosSinStock.length > 0;
   
       console.log('Productos cargados en el carrito:', this.productos);
-      this.cd.detectChanges();  // Forzar detección de cambios
+      console.log('Productos sin stock:', this.productosSinStock);
+  
+      this.cd.detectChanges();  // Forzar la actualización de la vista
     } catch (error) {
       console.error('Error al cargar productos del carrito:', error);
       this.alertasService.presentAlert('Error', 'No se pudieron cargar los productos.');
@@ -69,6 +73,8 @@ export class CarritoPage implements OnInit {
   }
   
   async continuar() {
+    await this.borrarProductosSinStock();
+    this.productosSinStock = [];
     this.mostrarSinStock = false;
     await this.actualizarPrecioTotal();  // Actualizamos el total.
     await this.cargarProductos();
@@ -88,6 +94,32 @@ export class CarritoPage implements OnInit {
       this.actualizarPrecioTotal();  // Actualizamos el total.
     }
   }
+
+  async borrarProductosSinStock() {
+    try {
+      for (let producto of this.productosSinStock) {
+        await this.bd.eliminarProductoDelCarrito(this.idVentaActiva, producto.id_producto);
+      }
+      console.log('Productos sin stock eliminados del carrito');
+      await this.cargarProductos();  // Recargar productos
+      this.alertasService.presentAlert('Productos sin stock eliminados', '');
+    } catch (error) {
+      console.error('Error al eliminar productos sin stock:', error);
+    }
+  }
+
+/*
+  async RestarStockAlComprar() {
+    try {
+      for (let producto of this.productosDisponibles) {
+        await this.bd.(this.idVentaActiva, producto.id_producto);
+      }
+      await this.cargarProductos();  // Recargar productos
+      this.alertasService.presentAlert('Productos sin stock eliminados', '');
+    } catch (error) {
+      console.error('Error al eliminar productos sin stock:', error);
+    }
+  } */
 
 
   async actualizarPrecioTotal() {

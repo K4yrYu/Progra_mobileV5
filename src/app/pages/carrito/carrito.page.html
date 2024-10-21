@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ng-container *ngIf="mostrarSinStock; else disponiblesPage">
+  <ng-container *ngIf="productosSinStock.length > 0">
     <h3 style="color: white; text-align: center;">Productos sin stock</h3>
     <ion-card class="producto-card" *ngFor="let producto of productosSinStock">
       <ion-item lines="none">
@@ -23,12 +23,13 @@
       </ion-item>
     </ion-card>
 
-    <ion-button expand="block" color="primary" (click)="continuar()">
-      Continuar
+    <!-- Botón para continuar y eliminar productos sin stock -->
+    <ion-button expand="block" color="primary" (click)="borrarProductosSinStock()">
+      Continuar y eliminar productos sin stock
     </ion-button>
   </ng-container>
 
-  <ng-template #disponiblesPage>
+  <ng-container *ngIf="productosDisponibles.length > 0">
     <h3 style="color: white; text-align: center;">Productos disponibles</h3>
     <ion-card class="producto-card" *ngFor="let producto of productosDisponibles">
       <ion-item lines="none">
@@ -71,5 +72,5 @@
         Comprar
       </ion-button>
     </div>
-  </ng-template>
+  </ng-container>
 </ion-content>

@@ -1581,6 +1581,17 @@ obtenerIdUsuarioLogueado() {
     }
   }
 
+  //elimina los productos malos xd
+  async eliminarProductoDelCarrito(idVenta: any, idProducto: any): Promise<void> {
+    const query = `DELETE FROM detalle WHERE id_venta = ? AND id_producto = ?`;
+    try {
+      await this.database.executeSql(query, [idVenta, idProducto]);
+    } catch (error) {
+      console.error('Error al eliminar producto del carrito:', error);
+      throw error;
+    }
+  }
+
   //calcular precio final 
   async preciofinal(idVenta: any): Promise<number> {
     const query = `
