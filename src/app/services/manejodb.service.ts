@@ -1590,7 +1590,7 @@ obtenerIdUsuarioLogueado() {
 
   async restarStock(idProducto: number, cantidad: number): Promise<void> {
     const query = `
-      UPDATE productos 
+      UPDATE producto 
       SET stock_prod = stock_prod - ? 
       WHERE id_producto = ?;
     `;
