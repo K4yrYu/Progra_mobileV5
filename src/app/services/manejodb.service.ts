@@ -1831,5 +1831,4 @@ async validarRespuestaSeguridad(username: string, respuesta: string): Promise<bo
       this.alertasService.presentAlert("Eliminar", "Error: " + JSON.stringify(e));
     }
   }
-
 }

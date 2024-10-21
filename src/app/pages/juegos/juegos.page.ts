@@ -15,7 +15,7 @@ export class JuegosPage implements OnInit {
       id_producto: '',
       nombre_prod: '',
       precio_prod: '',
-      stock_prod:  '', 
+      stock_prod: '', 
       descripcion_prod: '',
       foto_prod: '',
       estatus: '',
@@ -26,7 +26,11 @@ export class JuegosPage implements OnInit {
 
   juegosFiltrados: any[] = []; // Para almacenar los juegos filtrados
 
-  constructor(private alertasService: AlertasService, private bd: ManejodbService, private router: Router) {}
+  constructor(
+    private alertasService: AlertasService,
+    private bd: ManejodbService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.juegosFiltrados = this.arregloJuegos; // Mostrar todos los juegos inicialmente
@@ -41,10 +45,10 @@ export class JuegosPage implements OnInit {
     });
   }
 
-  irJuegoUnico(x: any) {
+  irJuegoUnico(juego: any) {
     let navigationExtras: NavigationExtras = {
       state: {
-        juegoSelect: x
+        juegoSelect: juego
       }
     };
     this.router.navigate(['/juegounico'], navigationExtras);
