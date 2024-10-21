@@ -1,0 +1,70 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Editar Consola</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="editarconsola-container">
+    <ion-list>
+      <h1>Editar Consola</h1>
+
+      <!-- Nombre de la consola -->
+      <ion-item>
+        <ion-label>Nombre de la Consola:</ion-label>
+        <ion-input class="custom-input" type="text" [(ngModel)]="consolaLlego.nombre_prod"></ion-input>
+      </ion-item>
+
+      <!-- Descripción de la consola -->
+      <ion-item>
+        <ion-label>Descripción:</ion-label>
+        <ion-textarea class="custom-input" [(ngModel)]="consolaLlego.descripcion_prod"></ion-textarea>
+      </ion-item>
+
+      <!-- Precio de la consola -->
+      <ion-item>
+        <ion-label>Precio:</ion-label>
+        <ion-input class="custom-input" type="number" [(ngModel)]="consolaLlego.precio_prod" (ionBlur)="validarNumeroEntero('precio')"></ion-input>
+      </ion-item>
+
+      <!-- Stock de la consola -->
+      <ion-item>
+        <ion-label>Stock:</ion-label>
+        <ion-input class="custom-input" type="number" [(ngModel)]="consolaLlego.stock_prod" (ionBlur)="validarNumeroEntero('stock')"></ion-input>
+      </ion-item>
+
+      <!-- Botón para tomar la foto -->
+      <ion-button expand="full" class="boton-foto" (click)="tomarFoto()">
+        <ion-icon name="camera" class="camera-icon"></ion-icon>
+        Subir Foto
+      </ion-button>
+
+      <!-- Mostrar la imagen si está disponible -->
+      <div *ngIf="consolaLlego.foto_prod" class="imagen-container">
+        <img [src]="consolaLlego.foto_prod" class="imagen-consola" alt="Imagen de la consola" />
+      </div>
+
+      <!-- Selección de Estado con mat-select -->
+      <ion-item>
+        <ion-label>Estado:</ion-label>
+        <mat-select [(ngModel)]="estatus" placeholder="Selecciona el estado">
+          <mat-option *ngFor="let estado of estados" [value]="estado.value">
+            {{ estado.viewValue }}
+          </mat-option>
+        </mat-select>
+      </ion-item>
+
+      <!-- Mensajes de error -->
+      <p *ngIf="errorCampos" class="error-message">Todos los campos son obligatorios. Por favor, completa todos los campos.</p>
+      <p *ngIf="errorPrecio" class="error-message">El precio no puede ser menor a 0.</p>
+      <p *ngIf="errorStock" class="error-message">El stock no puede ser menor a 0.</p>
+      <p *ngIf="errorImagen" class="error-message">La imagen es obligatoria.</p>
+
+      <div style="height: 3pc;"></div>
+    </ion-list>
+
+    <!-- Botones para guardar cambios o volver -->
+    <ion-button class="boton" expand="full" (click)="guardarCambios()">Guardar Cambios</ion-button>
+    <ion-button class="boton" expand="full" [routerLink]="['/crudconsolas']">Volver</ion-button>
+  </div>
+</ion-content>

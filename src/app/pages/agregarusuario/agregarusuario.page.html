@@ -1,0 +1,123 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Agregar Usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="agregarusuario-container">
+    <ion-list>
+      <h1>Agregar Usuario</h1>
+
+      <!-- Imagen del usuario -->
+      <ion-item>
+        <ion-label>Foto de Usuario</ion-label>
+        <ion-img [src]="usuario.foto || 'assets/img/user_default_photo.jpg'" alt="Foto de perfil" class="profile-image"></ion-img>
+      </ion-item>
+
+      <!-- Botón para agregar foto con ícono dentro -->
+      <ion-button expand="block" (click)="agregarFoto()">
+        <ion-icon name="camera" slot="start"></ion-icon>
+        Subir Foto
+      </ion-button>
+
+      <!-- Campos del formulario con etiquetas arriba -->
+      <ion-item>
+        <ion-label position="stacked">Usuario</ion-label>
+        <ion-input [(ngModel)]="usuario.usuario" class="custom-input" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Nombres</ion-label>
+        <ion-input [(ngModel)]="usuario.nombres" class="custom-input" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Apellidos</ion-label>
+        <ion-input [(ngModel)]="usuario.apellidos" class="custom-input" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">RUT</ion-label>
+        <ion-input [(ngModel)]="usuario.rut" class="custom-input" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Correo</ion-label>
+        <ion-input type="text" [(ngModel)]="usuario.correo" class="custom-input"
+                   (ngModelChange)="usuario.correo = $event.toLowerCase(); validarCorreo()" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Contraseña</ion-label>
+        <ion-input [(ngModel)]="usuario.contrasena" class="custom-input" type="password">
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Confirmar Contraseña</ion-label>
+        <ion-input [(ngModel)]="usuario.confirmarContrasena" class="custom-input" type="password">
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        </ion-input>
+      </ion-item>
+
+      <ion-item style="margin: 5px 0;">
+        <p></p>
+      </ion-item>
+
+      <p style="color: white;">*PREGUNTA DE SEGURIDAD NO OLVIDAR RESPUESTA*</p>
+      <p style="color: white;">*NO PUEDE HABER ESPACIOS EN BLANCO*</p>
+      <ion-item>
+        <ion-label position="stacked">¿Cuál es tu color favorito?</ion-label>
+        <ion-input type="text" class="custom-input" [(ngModel)]="respuestaSeguridad"></ion-input>
+      </ion-item>
+
+      <!-- Selección de Rol -->
+      <ion-item>
+        <ion-label>Rol</ion-label>
+        <mat-select [(ngModel)]="usuario.rol">
+          <mat-option *ngFor="let rol of roles" [value]="rol.value">
+            {{ rol.viewValue }}
+          </mat-option>
+        </mat-select>
+      </ion-item>
+
+      <!-- Selección de Estado -->
+      <ion-item>
+        <ion-label>Estado</ion-label>
+        <mat-select [(ngModel)]="usuario.estado">
+          <mat-option *ngFor="let estado of estados" [value]="estado.value">
+            {{ estado.viewValue }}
+          </mat-option>
+        </mat-select>
+      </ion-item>
+
+      <!-- Mensajes de error -->
+      <p *ngIf="errorUsuarioExistente" class="error-message">
+        Este Usuario ya está registrado.
+      </p>
+      <p *ngIf="errorCorreoExistente" class="error-message">
+        Este correo ya está registrado.
+      </p>
+      <p *ngIf="errorCampos" class="error-message">
+        Todos los campos son obligatorios. Por favor, completa todos los campos.
+      </p>
+      <p *ngIf="errorContrasena" class="error-message">Las contraseñas no coinciden.</p>
+      <p *ngIf="errorFormatoContrasena" class="error-message">
+        La contraseña debe tener al menos 6 caracteres, incluyendo una letra minúscula, una letra mayúscula, un número y un carácter especial.
+      </p>
+      <p *ngIf="errorCorreo" class="error-message">El formato del correo es incorrecto.</p>
+      <p *ngIf="errorRut" class="error-message">El formato del RUT es incorrecto, debe ser 12345678-k.</p>
+    </ion-list>
+
+    <div style="height: 3pc;"></div>
+
+    <ion-button class="boton" expand="full" (click)="validarCampos()">
+      Agregar Usuario
+    </ion-button>
+    <ion-button class="boton" expand="full" [routerLink]="['/crudusuarios']">
+      Volver
+    </ion-button>
+  </div>
+</ion-content>

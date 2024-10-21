@@ -1,0 +1,93 @@
+ion-content {
+  --background: none;
+  background: linear-gradient(to bottom right, #121212, #007bff); /* Gris oscuro a azul brillante */
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover; /* Asegura que la imagen mantenga sus proporciones mientras llena el área */
+  border-radius: 50%; /* Mantiene la imagen circular */
+  display: block;
+  margin: 0 auto 16px auto; /* Centra la imagen dentro de su contenedor */
+  border: 2px solid #ffffff; /* Agrega un borde blanco alrededor de la imagen para destacarla */
+}
+
+.username, .email {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: black;
+}
+
+ion-card {
+  margin: 16px;
+  padding: 16px;
+  border-radius: 12px;
+  max-width: 500px; /* Asegura que no ocupe más ancho del necesario */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.perfil-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas */
+  gap: 15px; /* Espacio entre botones */
+  justify-items: center; /* Centra los botones en las columnas */
+}
+
+.btnOpsPerfil {
+  height: 80px;
+  background: #007bff; /* Mantiene el color azul */
+  color: white;
+  border-radius: 15px;
+  font-size: 18px;
+  text-align: center;
+  width: 100%; /* Asegura que el botón ocupe todo el ancho del contenedor */
+  max-width: 200px; /* Limita el ancho máximo del botón para que no se desborde */
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Centra el texto en el botón */
+}
+
+.btnCS {
+  background-color: #ff4d4d; /* Rojo para el botón de Cerrar Sesión */
+  color: white;
+  font-size: 18px;
+  border-radius: 10px;
+  width: 100%; /* Hace que el botón de Cerrar Sesión ocupe todo el ancho */
+  height: 60px;
+  margin-top: 20px;
+}
+
+.mantener-sesion {
+  background-color: #00911d !important; /* Color verde oscuro */
+  color: white; /* Color del texto */
+  height: 80px;
+  color: white;
+  border-radius: 15px;
+  font-size: 18px;
+  text-align: center;
+  width: 100%; /* Asegura que el botón ocupe todo el ancho del contenedor */
+  max-width: 200px; /* Limita el ancho máximo del botón para que no se desborde */
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+
+.no-mantener-sesion {
+  background-color: rgb(151, 0, 0) !important; /* Color rojo */
+  color: white; /* Color del texto */
+  height: 80px;
+  color: white;
+  border-radius: 15px;
+  font-size: 18px;
+  text-align: center;
+  width: 100%; /* Asegura que el botón ocupe todo el ancho del contenedor */
+  max-width: 200px; /* Limita el ancho máximo del botón para que no se desborde */
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}

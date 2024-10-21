@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Eliminar Consola</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding contenido-centrado">
+  <ion-card>
+    <ion-item lines="none">
+      <ion-thumbnail slot="start">
+        <img [src]="consolaLlego.foto_prod" alt="sin imagen" />
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ consolaLlego.nombre_prod }}</h2>
+        <p><strong>Precio:</strong> {{ consolaLlego.precio_prod | currency:'CLP':'symbol':'1.0-0' }}</p>
+        <p><strong>Stock:</strong> {{ consolaLlego.stock_prod }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+
+  <div class="botones-centrados">
+    <ion-button color="danger" expand="block" (click)="eliminarConsola()">
+      Eliminar
+    </ion-button>
+    <ion-button color="primary" expand="block" [routerLink]="['/crudconsolas']">
+      Cancelar
+    </ion-button>
+  </div>
+</ion-content>

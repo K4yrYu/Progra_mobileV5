@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" text="Atras" icon="arrow-back" [routerLink]="['/perfil']"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Ayuda Cliente</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="form-container">
+    <h4>Selecciona una Categoría</h4>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Categoría</mat-label>
+      <mat-select [(ngModel)]="categoria">
+        <mat-option *ngFor="let categoria of categorias" [value]="categoria.value">
+          {{ categoria.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="input-group">
+      <ion-label class="input-label">Correo electrónico</ion-label>
+      <ion-input type="email" [(ngModel)]="email" placeholder="Ingresa tu correo" class="input-field"></ion-input>
+    </div>
+
+    <div class="input-group">
+      <ion-label class="input-label">Descripción del problema</ion-label>
+      <ion-textarea [(ngModel)]="descripcion" placeholder="Describe tu problema aquí..." class="textarea-field"></ion-textarea>
+    </div>
+
+    <div class="button-container">
+      <ion-button expand="block" color="primary" class="button">
+        Adjuntar imágenes
+      </ion-button>
+      <ion-button expand="block" color="success" class="button" (click)="onSubmit()">
+        Enviar
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

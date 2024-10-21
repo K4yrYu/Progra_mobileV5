@@ -1,0 +1,52 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <!-- Botón de regreso con texto "Volver" -->
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" text="Atras" icon="arrow-back-outline" [routerLink]="['/paneladmin']"></ion-back-button>
+    </ion-buttons>
+    <ion-title>CRUD Juguetes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Botón para agregar un nuevo juguete, ubicado antes de la lista -->
+  <div class="add-button-container">
+    <ion-button (click)="agregarJuguete()">
+      <ion-icon slot="start" name="add"></ion-icon>
+      Agregar Juguete
+    </ion-button>
+  </div>
+
+  <!-- Lista de juguetes -->
+  <ion-list>
+    <ion-card *ngFor="let juguete of arregloJuguetes" class="juguete-card">
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <img [src]="juguete.foto_prod" alt="sin imagen" />
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ juguete.nombre_prod }}</h2>
+          <p><strong>Precio:</strong> {{ juguete.precio_prod | currency:'CLP':'symbol':'1.0-0' }}</p>
+          <p><strong>Stock:</strong> {{ juguete.stock_prod }}</p>
+          <p><strong>Estado:</strong> {{ juguete.estatus === 1 ? 'Disponible' : juguete.estatus === 0 ? 'No Disponible' : 'Rol desconocido' }}</p>
+        </ion-label>
+      </ion-item>
+
+      <!-- Botones de acción para editar y eliminar -->
+      <ion-row class="action-buttons">
+        <ion-col>
+          <ion-button color="primary" expand="block" (click)="editarJuguete(juguete)">
+            <ion-icon slot="start" name="create"></ion-icon>
+            Editar
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button color="danger" expand="block" (click)="eliminarJuguete(juguete)">
+            <ion-icon slot="start" name="trash"></ion-icon>
+            Eliminar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-list>
+</ion-content>

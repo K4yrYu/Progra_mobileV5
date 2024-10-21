@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" text="Atras" icon="arrow-back" [routerLink]="['/home']"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Acerca De Nosotros</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="nosotros-container">
+    <img src="assets/img/MegaGames.jpeg" alt="logoMegaGames">
+
+    <div class="box">
+      <h1>Sobre Nosotros</h1>
+      <p>
+        Megagames lidera la industria del entretenimiento digital con juegos innovadores y de calidad, 
+        ganando reconocimiento global y lealtad de fans. Nos comprometemos a seguir cautivando la 
+        imaginación de jugadores de todas las edades con nuestras aventuras virtuales.
+      </p>
+    </div>
+    <div class="box">
+      <h1>Encuentranos:</h1>
+      <p>Paseo Ahumada 85, 8320313 Santiago, Región Metropolitana</p>
+    </div>
+    <div class="box">
+      <h1>Siguenos</h1>
+      <div class="red-social">
+        <ion-icon name="logo-facebook"></ion-icon>
+        <ion-icon name="logo-instagram"></ion-icon>
+        <ion-icon name="logo-twitter"></ion-icon>
+      </div>
+    </div>
+  </div>
+  <div class="box">
+    <p class="box">&copy; 2024 <b>MegaGames</b> - Todos Los derechos reservados.</p>
+  </div>
+</ion-content>

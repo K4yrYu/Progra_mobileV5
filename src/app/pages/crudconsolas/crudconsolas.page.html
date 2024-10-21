@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" text="Atras" icon="arrow-back-outline" [routerLink]="['/paneladmin']"></ion-back-button>
+    </ion-buttons>
+    <ion-title>CRUD Consolas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="add-button-container">
+    <ion-button (click)="agregarConsola()">
+      <ion-icon slot="start" name="add"></ion-icon>
+      Agregar Consola
+    </ion-button>
+  </div>
+
+  <ion-list>
+    <ion-card *ngFor="let consola of arregloConsolas" class="consola-card">
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <img [src]="consola.foto_prod" alt="sin imagen" />
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ consola.nombre_prod }}</h2>
+          <p><strong>Precio:</strong> {{ consola.precio_prod | currency:'CLP':'symbol':'1.0-0' }}</p>
+          <p><strong>Stock:</strong> {{ consola.stock_prod }}</p>
+          <p><strong>Estado:</strong> {{ consola.estatus === 1 ? 'Disponible' : 'No Disponible' }}</p>
+        </ion-label>
+      </ion-item>
+
+      <ion-row class="action-buttons">
+        <ion-col>
+          <ion-button color="primary" expand="block" (click)="editarConsola(consola)">
+            <ion-icon slot="start" name="create"></ion-icon>
+            Editar
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button color="danger" expand="block" (click)="eliminarConsola(consola)">
+            <ion-icon slot="start" name="trash"></ion-icon>
+            Eliminar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-list>
+</ion-content>

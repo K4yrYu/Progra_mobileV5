@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="/" text="Carrito" icon="cart-outline" [routerLink]="['/carrito']"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card *ngFor="let usuario of arregloUsuarioConectado">
+    <ion-card-header>
+      <img [src]="getImagenUsuario(usuario.foto_usuario)" alt="Imagen predeterminada" class="profile-image"/>
+    </ion-card-header>
+    <ion-card-content>
+      <p class="username">Usuario: {{ usuario.username }}</p>
+      <p class="email">Correo: {{ usuario.correo }}</p> 
+      
+      <!-- Botones de Opciones de Perfil -->
+      <div class="perfil-container">
+        <ion-button expand="block" class="btnOpsPerfil" [routerLink]="['/modificarperfil']">
+          Modificar Perfil
+        </ion-button>
+        <ion-button expand="block" class="btnOpsPerfil" [routerLink]="['/listadeseos']">
+          Lista de Deseos
+        </ion-button>
+        <ion-button expand="block" class="btnOpsPerfil" [routerLink]="['/historialcompras']">
+          Historial de Compras
+        </ion-button>
+        <ion-button expand="block" class="btnOpsPerfil" [routerLink]="['/resecnas']">
+          Mis Reseñas
+        </ion-button>
+        <ion-button expand="block" class="btnOpsPerfil" [routerLink]="['/carrito']">
+          carrito
+        </ion-button>
+        
+        <!-- Botón "Mantener Sesión" visible si mantenerSesionActivo es false -->
+        <ion-button expand="block" class="mantener-sesion" *ngIf="!mantenerSesionActivo" (click)="MantenerSesion()">
+          Mantener Sesión
+        </ion-button>
+
+        <!-- Botón "No Mantener Sesión" visible si mantenerSesionActivo es true -->
+        <ion-button expand="block" class="no-mantener-sesion" *ngIf="mantenerSesionActivo" (click)="DesactivarMantenerSesion()">
+          No Mantener Sesión
+        </ion-button>
+      </div>
+      
+      <!-- Botón para cerrar sesión -->
+      <ion-button class="btnCS" color="danger" expand="block" (click)="cerrarSesion()">
+        Cerrar Sesión
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

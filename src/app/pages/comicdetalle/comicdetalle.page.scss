@@ -1,0 +1,53 @@
+/* Fondo del contenido principal con degradado de gris oscuro a azul brillante */
+ion-content {
+    --background: none;
+    background: linear-gradient(to bottom right, #121212, #007bff); /* Fondo degradado */
+  }
+  
+  /* Estiliza la tarjeta del cómic */
+  ion-card {
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo blanco semi-transparente */
+    color: white; /* Texto en blanco */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 20px; /* Padding interno */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra suave */
+  }
+  
+  /* Estiliza la imagen del cómic */
+  ion-card img {
+    width: 100%; /* La imagen ocupa el ancho completo del card */
+    border-radius: 10px; /* Bordes redondeados */
+    margin-bottom: 20px; /* Margen inferior */
+  }
+  
+  /* Estiliza el encabezado del card */
+  ion-card-header {
+    text-align: center; /* Centra el texto */
+    font-size: 1.8rem; /* Tamaño de fuente */
+    color: white; /* Color del texto */
+  }
+  
+  /* Estiliza el título del cómic */
+  ion-card-title {
+    font-size: 2rem; /* Tamaño de fuente del título */
+    font-weight: bold; /* Negrita */
+    color: #f1f1f1; /* Color claro */
+    margin-bottom: 10px; /* Margen inferior */
+  }
+  
+  /* Estiliza el subtítulo del cómic (autor y año) */
+  ion-card-subtitle {
+    font-size: 1.4rem; /* Tamaño de fuente del subtítulo */
+    color: #ccc; /* Color gris claro */
+    margin-bottom: 10px; /* Margen inferior */
+  }
+  
+  /* Estiliza el contenido del card */
+  ion-card-content {
+    font-size: 1.6rem; /* Tamaño de fuente */
+    color: white; /* Color del texto */
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo negro semi-transparente */
+    padding: 15px; /* Padding interno */
+    border-radius: 10px; /* Bordes redondeados */
+  }
+  

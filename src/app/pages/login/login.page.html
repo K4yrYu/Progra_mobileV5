@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start"></ion-buttons>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="spacer"></div>
+  <div class="spacer"></div>
+  
+  <div class="login-container">
+    <h2 style="color: white;">Inicio Sesión</h2>
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Usuario</ion-label>
+        <ion-input id="username" name="email" required [(ngModel)]="usernameunlogged"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Contraseña</ion-label>
+        <ion-input type="password" required [(ngModel)]="password">
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        </ion-input>
+      </ion-item>
+      <ion-button expand="block" (click)="loggin(usernameunlogged,password)">Ingresar</ion-button>
+    </ion-list>
+    <p *ngIf="loginError" style="color: red;">Usuario o contraseña incorrectos. Intente nuevamente.</p>
+    <p *ngIf="usuarioBaneadoError" style="color: red;">Usuario baneado. Acceso denegado.</p>
+    <p class="opsAD">No tienes cuenta? <a routerLink="/registro">Regístrate aquí!</a></p>
+    <p class="opsAD">No recuerdas tu contraseña? <a routerLink="/recuperar">Recupérala aquí</a></p>
+  </div>
+</ion-content>

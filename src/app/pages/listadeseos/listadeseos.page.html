@@ -1,0 +1,49 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" text="Atrás" icon="arrow-back" [routerLink]="['/perfil']"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Lista de Deseos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="wishlist-content">
+  <ion-card *ngIf="favoritos && favoritos.length > 0; else noFavoritos">
+    <ion-card-header>
+      <ion-card-title>Lista de favoritos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <!-- Recorremos los favoritos -->
+        <ion-row *ngFor="let fav of favoritos" class="product-row">
+          <ion-col size="3" class="product-image-col">
+            <ion-thumbnail class="product-image">
+              <img [src]="fav.foto_prod" alt="{{ fav.nombre_prod }}" />
+            </ion-thumbnail>
+          </ion-col>
+          <ion-col size="6" class="product-info">
+            <h2>{{ fav.nombre_prod }}</h2>
+            <p>{{ fav.precio_prod | currency: 'CLP':'symbol':'1.0-0' }}</p>
+          </ion-col>
+          <ion-col size="3" class="button-col">
+            <ion-button size="small" expand="block" fill="solid" color="danger" (click)="quitarDeListaDeseos(fav.id_producto)">
+              Quitar de Favoritos
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Template alternativo para cuando no hay favoritos -->
+  <ng-template #noFavoritos>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Lista sin favoritos</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>No tienes productos en tu lista de favoritos.</p>
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+</ion-content>

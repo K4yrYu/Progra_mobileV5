@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="/" text="Carrito" icon="cart-outline" [routerLink]="['/carrito']"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Panel Admin</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="home-container">
+    <img src="assets/img/MegaGames.jpeg" alt="Game Controller" class="home-image" />
+    <div class="button-grid">
+      <ion-button expand="block" class="grid-button" [routerLink]="['/crudjuegos']">
+        <ion-icon name="game-controller-outline" slot="start"></ion-icon>
+        Edición Juegos
+      </ion-button>
+
+      <ion-button expand="block" class="grid-button" [routerLink]="['/crudconsolas']">
+        <ion-icon name="desktop-outline" slot="start"></ion-icon>
+        Edición Consolas
+      </ion-button>
+
+      <ion-button expand="block" class="grid-button" [routerLink]="['/crudjuguetes']">
+        <ion-icon name="cube-outline" slot="start"></ion-icon>
+        Edición Juguetes
+      </ion-button>
+
+      <ion-button expand="block" class="grid-button" [routerLink]="['/adminresecnas']">
+        <ion-icon name="chatbubble-outline" slot="start"></ion-icon>
+        Administrar Reseñas
+      </ion-button>
+
+      <ion-button expand="block" class="grid-button" [routerLink]="['/crudusuarios']">
+        <ion-icon name="accessibility-outline" slot="start"></ion-icon>
+        Edición Usuario
+      </ion-button>
+
+      <ion-button expand="block" class="grid-button centered-button" [routerLink]="['/home']">
+        <ion-icon name="home-outline" slot="start"></ion-icon>
+        Home
+      </ion-button>
+    </div>
+  </div> 
+</ion-content>

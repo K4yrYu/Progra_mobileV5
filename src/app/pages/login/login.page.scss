@@ -1,0 +1,91 @@
+/* Fondo blanco para el contenido */
+ion-content {
+  --background: transparent; /* Fondo transparente para asegurar que se muestre la imagen */
+  background-image: url('/assets/img/fondo.avif'); /* Ruta a tu imagen */
+  background-size: cover; /* Ajusta el tamaño de la imagen para cubrir todo el contenido */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* No repite la imagen */
+}
+
+/* Contenedor de login */
+.login-container {
+  width: 90%;
+  max-width: 400px;
+  margin: 0px auto;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.9); /* Fondo semi-transparente */
+  border-radius: 8px;
+  background: linear-gradient(to bottom right, #58d5ff, #244dd6);
+}
+
+/* Encabezado dentro del contenedor de login */
+.login-container h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #000; /* Texto del encabezado en negro */
+}
+
+/* Estilo para todos los ion-items dentro de ion-list */
+ion-list ion-item {
+  --ion-item-background: transparent !important; /* Fondo transparente para ion-items */
+  --color: #ffffff !important; /* Texto blanco para ion-items */
+  --border-color: transparent !important; /* Elimina el color del borde para ion-items */
+  margin-top: 10px !important; /* Agrega un margen superior a cada ion-item */
+  margin-bottom: 20px !important; /* Agrega un margen inferior para mayor separación entre campos */
+}
+
+/* Estilo para ion-input dentro de ion-item */
+ion-input {
+  --background: transparent !important; /* Fondo transparente para los campos de entrada */
+  --color: #ffffff; /* Texto blanco para los campos de entrada */
+  --placeholder-color: #ffffff; /* Color gris para el texto del placeholder */
+  border: 2px solid rgba(0, 0, 0, 0.3); /* Borde blanco con transparencia para visibilidad */
+  padding: 10px !important; /* Espacio interno uniforme */
+}
+
+/* Estilo para ion-label dentro de ion-item */
+ion-label {
+  --color: #ffffff !important; /* Asegura que el texto de ion-label sea blanco */
+  margin-bottom: 5px !important; /* Espacio debajo de la etiqueta */
+  font-size: 1.2rem !important; /* Aumenta el tamaño de la fuente de las etiquetas */
+}
+/* Botón de ingreso */
+ion-button {
+  --background: #007bff; /* Fondo azul del botón */
+  --color: #fff; /* Texto blanco del botón */
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+}
+
+/* Estilo para el texto del párrafo */
+p {
+  text-align: center;
+  margin-top: 20px;
+  color: #000; /* Texto del párrafo en negro */
+}
+
+/* Enlace dentro del párrafo */
+p a {
+  color: #00d5ff; /* Color azul para el enlace */
+  text-decoration: none;
+}
+
+p a:hover {
+  text-decoration: underline; /* Subrayado al pasar el ratón */
+}
+
+ion-list {
+  background: #f4f5f800; /* Fondo transparente para ion-list */
+}
+
+/* espacio vacío */
+.spacer {
+  margin: 20px 0; /* Espacio vacío vertical */
+  padding: 20px; /* Espacio dentro del elemento */
+}
+
+.opsAD{
+  color: white;
+}

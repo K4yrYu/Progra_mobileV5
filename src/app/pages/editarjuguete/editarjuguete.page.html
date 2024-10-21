@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Editar Juguete</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="editarjuguete-container">
+    <ion-list>
+      <h1>Editar Juguete</h1>
+
+      <ion-item>
+        <ion-label>Nombre del Juguete:</ion-label>
+        <ion-input class="custom-input" type="text" [(ngModel)]="jugueteLlego.nombre_prod"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Descripción:</ion-label>
+        <ion-textarea class="custom-input" [(ngModel)]="jugueteLlego.descripcion_prod"></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Precio:</ion-label>
+        <ion-input class="custom-input" type="number" [(ngModel)]="jugueteLlego.precio_prod" (ionBlur)="validarNumeroEntero('precio')"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Stock:</ion-label>
+        <ion-input class="custom-input" type="number" [(ngModel)]="jugueteLlego.stock_prod" (ionBlur)="validarNumeroEntero('stock')"></ion-input>
+      </ion-item>
+
+      <!-- Botón para tomar la foto -->
+      <ion-button expand="full" class="boton-foto" (click)="tomarFoto()">
+        <ion-icon name="camera" class="camera-icon"></ion-icon>
+        Subir Foto
+      </ion-button>
+
+      <!-- Mostrar la imagen si está disponible -->
+      <div *ngIf="jugueteLlego.foto_prod" class="imagen-container">
+        <img [src]="jugueteLlego.foto_prod" class="imagen-juguete" alt="Imagen del juguete" />
+      </div>
+
+      <!-- Selección de Estado con mat-select -->
+      <ion-item>
+        <ion-label>Estado:</ion-label>
+        <mat-select [(ngModel)]="estatus" placeholder="Selecciona el estado">
+          <mat-option *ngFor="let estado of estados" [value]="estado.value">
+            {{ estado.viewValue }}
+          </mat-option>
+        </mat-select>
+      </ion-item>
+
+      <!-- Mensajes de error -->
+      <p *ngIf="errorCampos" class="error-message">Todos los campos son obligatorios. Por favor, completa todos los campos.</p>
+      <p *ngIf="errorPrecio" class="error-message">El precio no puede ser menor a 0.</p>
+      <p *ngIf="errorStock" class="error-message">El stock no puede ser menor a 0.</p>
+      <p *ngIf="errorImagen" class="error-message">La imagen es obligatoria.</p>
+    
+      <div style="height: 3pc;"></div> 
+    </ion-list>
+
+    <ion-button class="boton" expand="full" (click)="guardarCambios()">Guardar Cambios</ion-button>
+    <ion-button class="boton" expand="full" [routerLink]="['/crudjuguetes']">Volver</ion-button>
+  </div>
+</ion-content>

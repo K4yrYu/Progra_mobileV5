@@ -1,0 +1,119 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="/" text="Carrito" icon="cart-outline" [routerLink]="['/carrito']"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Principal</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="home-container">
+    <img src="assets/img/MegaGames.jpeg" alt="Game Controller" class="home-image" />
+
+    <!-- Swiper Slider (titulo) -->
+    <h4 class="juguetes-oferta">Próximos Videojuegos</h4>
+    <!-- Swiper Slider (contenido) -->
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let colec_juegos of colec_juegos">
+          <ion-card>
+            <img class="Jcard" [src]="colec_juegos.imgJ" alt="img juegos" />
+            <ion-card-header>
+              <ion-card-title>{{ colec_juegos.precioJ }}</ion-card-title>
+              <ion-card-subtitle>{{ colec_juegos.nomJ }}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-button (click)="verTrailer(colec_juegos.videoId)">
+                <ion-icon name="film-outline"></ion-icon>
+                Ver Trailer
+              </ion-button>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </div>
+    </div>
+
+    <div style="height: 3pc;"></div>
+    
+    <!-- Swiper Slider (titulo) -->
+    <h4 class="consolas-oferta">Próximas Consolas</h4>
+    <!-- Swiper Slider (contenido) -->
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let colec_consolas of colec_consolas">
+          <ion-card class="Ccard">
+            <img [src]="colec_consolas.imgC" alt="img juegos" />
+            <ion-card-header>
+              <ion-card-title>{{ colec_consolas.precioC }}</ion-card-title>
+              <ion-card-subtitle>{{ colec_consolas.nomC }}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-button (click)="verTrailer(colec_consolas.videoId)">
+                <ion-icon name="film-outline"></ion-icon>
+                Ver Trailer
+              </ion-button>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </div>
+    </div>
+
+    <div style="height: 3pc;"></div>
+
+    <!-- Swiper Slider (titulo) -->
+    <h4 class="juguetes-oferta">Próximos Juguetes</h4>
+    <!-- Swiper Slider (contenido) -->
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let colec_juguetes of colec_juguetes">
+          <ion-card class="JTcard">
+            <img class="imgcardJT" [src]="colec_juguetes.imgJT" alt="img juguetes" />
+            <ion-card-header>
+              <ion-card-title>{{ colec_juguetes.precioJT }}</ion-card-title>
+              <ion-card-subtitle>{{ colec_juguetes.nomJT }}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-button (click)="verTrailer(colec_juguetes.videoId)">
+                <ion-icon name="film-outline"></ion-icon>
+                Ver Trailer
+              </ion-button>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </div>
+    </div>
+
+    <div style="height: 5pc;"></div>
+
+    <!-- Sección de Cómics -->
+    <h4 class="juguetes-oferta">Próximos Cómics</h4>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let comic of colec_comics">
+          <ion-card class="JTcard"> <!-- Usamos la misma clase JTcard -->
+            <img class="imgcardJT" [src]="comic.imagen" alt="Imagen del cómic" /> <!-- Usamos la misma clase imgcardJT -->
+            <ion-card-header>
+              <ion-card-title>{{ comic.precio }}</ion-card-title>
+              <ion-card-subtitle>{{ comic.titulo }} - {{ comic.autor }} ({{ comic.anio }})</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-button [routerLink]="['/comicdetalle', comic.id]">
+                <ion-icon name="book-outline"></ion-icon>
+                Ver Comic
+              </ion-button>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </div>
+    </div>
+
+    <div style="height: 5pc;"></div>
+
+    <!-- Slider de noticias -->
+    <img src="assets/img/swiper1.jpeg" alt="NEWS" class="imgNEWS" />
+  </div>
+</ion-content>

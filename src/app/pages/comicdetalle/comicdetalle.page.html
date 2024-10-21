@@ -1,0 +1,46 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" text="Atrás" icon="arrow-back" [routerLink]="['/home']"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Comic Detalle</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <ng-container *ngIf="comic; else loading">
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-title size="large">{{ comic?.titulo }}</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    
+    <!-- Sección de promoción del cómic -->
+    <ion-card class="promocion-comic">
+      <img [src]="comic.imagen" alt="Imagen del cómic">
+      
+      <ion-card-header>
+        <ion-card-title>{{ comic.titulo }}</ion-card-title>
+        <ion-card-subtitle>{{ comic.autor }} - {{ comic.anio }}</ion-card-subtitle>
+      </ion-card-header>
+      
+      <ion-card-content>
+        <p><strong>Estado:</strong> Próximamente</p>
+        <p><strong>Precio estimado:</strong> $XX.XX</p>
+        <p><strong>Fecha de llegada:</strong> Fecha a confirmar</p>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  <ng-template #loading>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Cargando detalles del cómic...</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-spinner></ion-spinner>
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+</ion-content>

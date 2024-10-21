@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Recuperar Clave</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="recuperar-container">
+    <h2>Recuperar Contraseña</h2>
+    
+    <!-- Input para el nombre de usuario -->
+    <ion-list *ngIf="!usuarioValidado">
+      <ion-item>
+        <ion-label position="stacked">Nombre de Usuario</ion-label>
+        <ion-input type="text" [(ngModel)]="nombreUsuario" required></ion-input>
+      </ion-item>
+      <p *ngIf="errorMessage" style="color: red;" class="error-message">{{ errorMessage }}</p>
+      <ion-button expand="block" (click)="validarUsuario()">Validar Usuario</ion-button>
+      <ion-button expand="block"  (click)="cancelar()">Cancelar</ion-button>
+    </ion-list>
+
+    <!-- Pregunta de seguridad -->
+    <div *ngIf="usuarioValidado">
+      <ion-list>
+        <ion-item>
+          <ion-label position="stacked">¿Cuál es tu color favorito?</ion-label>
+          <ion-input type="text" [(ngModel)]="respuestaSeguridad" required></ion-input>
+        </ion-item>
+        <p *ngIf="errorMessage" style="color: red;" class="error-message">{{ errorMessage }}</p>
+        <ion-button expand="block" (click)="validarRespuesta()">Validar Respuesta</ion-button>
+        <ion-button expand="block"  (click)="cancelar()">Cancelar</ion-button>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>
+

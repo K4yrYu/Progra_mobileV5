@@ -1,0 +1,38 @@
+ion-content {
+    --background: none;
+    background: linear-gradient(to bottom right, #121212, #007bff); /* Gris oscuro a azul brillante */
+}
+
+.nosotros-container{
+    color: white;
+    font-size: 2pc;
+    text-align: center;
+    padding: 20px;
+
+    .box{
+        color: white;
+        font-size: 2pc;
+        text-align: center;
+        padding: 20px;
+
+        h1 {
+            margin-bottom: 3pc; /* Espacio debajo del título */
+          }
+        
+          p {
+            line-height: 1.6; /* Aumenta la altura de la línea para separar el texto */
+            margin: 0; /* Elimina márgenes adicionales */
+            padding: 0; /* Asegura que no haya padding que pueda afectar la distribución del texto */
+          }
+    }
+}
+
+.box{
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+h1{
+    font-size: 3pc;
+}

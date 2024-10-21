@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" text="Atras" icon="arrow-back" [routerLink]="['/perfil']"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Historial Compras</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Retiros</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list>
+    <ion-card *ngFor="let retir of arregloVenta">
+      <ion-card-header>
+        <ion-card-subtitle>Monto Total: {{ retir.total }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <p>Fecha: {{ retir.fecha_venta }}</p> <!-- Cambiado rt -> retir -->
+        <!-- Condición para mostrar el estado del retiro -->
+        <p *ngIf="retir.estado_retiro === 0" style="color: green; font-weight: bold;">
+          Listo para retirar
+        </p>
+        <p *ngIf="retir.estado_retiro === 1" style="color: red; font-weight: bold;">
+          Producto retirado
+        </p>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+</ion-content>

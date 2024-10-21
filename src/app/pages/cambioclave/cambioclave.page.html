@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Cambio Clave</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="spacer"></div>
+
+  <div class="cambio-container">
+    <h2>Cambio De Contraseña</h2>
+    <ion-list> 
+
+      <ion-item>
+        <ion-label position="stacked">Contraseña</ion-label>
+        <ion-input type="password" [(ngModel)]="password">
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Confirmar Contraseña</ion-label>
+        <ion-input type="password" [(ngModel)]="confirmPassword">
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        </ion-input>
+      </ion-item>
+
+      <p *ngIf="errorMessage" style="color: red;" class="error-message">{{ errorMessage }}</p>
+
+      <ion-button expand="block" (click)="validarContrasenas()">
+        Realizar Cambio De Contraseña
+      </ion-button>
+      
+      <ion-button expand="block" (click)="cancelar()">
+        Cancelar
+      </ion-button>
+    </ion-list>
+  </div>
+</ion-content>

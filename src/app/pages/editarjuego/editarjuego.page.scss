@@ -1,0 +1,151 @@
+/* Fondo general del contenido con gradiente */
+ion-content {
+    --background: none;
+    background: linear-gradient(to bottom right, #121212, #007bff); /* Gris oscuro a azul brillante */
+}
+
+/* Contenedor del formulario */
+.editarjuego-container {
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0); /* Fondo semi-transparente */
+    border-radius: 8px;
+}
+
+/* Estilo para los elementos ion-item dentro de ion-list */
+ion-list ion-item {
+    --ion-item-background: transparent !important; /* Fondo transparente */
+    --color: #ffffff; /* Texto blanco */
+    display: flex; /* Flexbox para alinear el label y el input */
+    justify-content: space-between; /* Distribución del espacio entre label y input */
+    align-items: center; /* Alinear verticalmente el contenido */
+    margin-top: 30px; /* Margen uniforme para cada ion-item */
+    padding-bottom: 10px; /* Espacio adicional debajo de cada ion-item */
+}
+
+/* Estilo para los campos de entrada ion-input */
+ion-input, ion-textarea {
+    --background: transparent !important; /* Fondo transparente para los campos de entrada */
+    --color: #ffffff; /* Texto blanco */
+    border: 2px solid rgba(0, 0, 0, 0.3); /* Borde sutil para los campos de entrada */
+    padding: 10px !important; /* Espacio interno uniforme */
+    width: calc(100% - 30px); /* Ajuste de ancho */
+    border-radius: 5px; /* Bordes redondeados */
+    margin-top: 5px; /* Espacio extra entre el label y el input */
+    font-size: 1.1em; /* Tamaño del texto para mayor legibilidad */
+    margin-left: 20px; /* Espaciado hacia la derecha para evitar que los inputs estén pegados a las etiquetas */
+}
+
+/* Estilo para las etiquetas ion-label */
+ion-label {
+    --color: #ffffff; /* Texto blanco */
+    font-size: 1.2em; /* Tamaño más grande para mayor claridad */
+    margin-bottom: 10px; /* Espacio debajo de la etiqueta */
+    margin-right: 10px; /* Añade margen a la derecha para separar de los inputs */
+}
+
+/* Estilo general del formulario */
+ion-list {
+    background: #ffffff00; /* Fondo transparente para ion-list */
+}
+
+/* Estilo para los campos de entrada personalizados */
+.custom-input {
+    --color: #ffffff; /* Texto blanco */
+    border: 2px solid #ffffff; /* Borde blanco */
+    padding: 8px; /* Padding interno */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+/* Estilo para el mat-select */
+ion-item mat-select {
+    flex-grow: 1; /* Hace que el mat-select ocupe todo el espacio restante en el ion-item */
+    margin-left: 20px; /* Añade separación entre el label y el mat-select */
+    --mat-background: transparent; /* Fondo transparente */
+    color: #ffffff; /* Texto blanco */
+    border: 2px solid #ffffff; /* Borde blanco */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 8px; /* Padding interno */
+    margin-top: 5px; /* Consistencia con el espaciado de otros inputs */
+}
+
+/* Estilo para las opciones dentro del mat-select */
+.mat-select-panel {
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro con transparencia */
+    color: #ffffff; /* Texto blanco */
+}
+
+/* Estilo para las opciones seleccionadas */
+.mat-option.mat-selected {
+    background-color: #007bff !important; /* Color azul brillante para opción seleccionada */
+    color: #ffffff !important; /* Texto blanco */
+}
+
+/* Estilo para las opciones hover */
+.mat-option:hover {
+    background-color: rgba(0, 123, 255, 0.5) !important; /* Efecto hover azul brillante con transparencia */
+}
+
+/* Estilo del desplegable */
+.mat-select-trigger {
+    color: #ffffff; /* Texto blanco para el trigger del select */
+}
+
+/* Icono de flecha en mat-select */
+.mat-select-arrow {
+    color: #ffffff; /* Icono de flecha blanco */
+}
+
+/* Estilo para los botones */
+.boton {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    font-size: 1.2em; /* Tamaño más grande para el texto de los botones */
+    color: #ffffff; /* Texto blanco */
+    --background: #007bff; /* Fondo azul brillante */
+    margin-top: 15px; /* Espacio entre los botones */
+    border-radius: 8px;
+}
+
+/* Estilo para los títulos h1 */
+h1 {
+    color: white;
+    text-align: center;
+    font-size: 3pc;
+}
+
+/* Estilo para el icono de cámara */
+.camera-icon {
+    color: white;
+    size: 1pc;
+    padding-left: 1pc;
+}
+
+/* Estilo para los mensajes de error */
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-left: 16px;
+}
+
+/* Contenedor para la imagen cargada */
+.imagen-container {
+    display: flex;
+    justify-content: center; /* Centra la imagen horizontalmente */
+    align-items: center; /* Centra la imagen verticalmente */
+    margin-top: 20px;
+    height: 250px; /* Alto fijo del contenedor */
+    width: 100%; /* Ancho total del contenedor */
+}
+
+/* Estilo para la imagen del juego */
+.imagen-juego {
+    height: 100%; /* La imagen ocupa todo el alto del contenedor */
+    width: auto; /* Ajuste proporcional del ancho */
+    object-fit: cover; /* Asegura que la imagen cubra todo el área del contenedor sin deformación */
+    border-radius: 8px; /* Bordes redondeados para la imagen */
+}

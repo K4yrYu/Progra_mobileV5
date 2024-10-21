@@ -1,0 +1,88 @@
+ion-content {
+  --background: none;
+  background: linear-gradient(to bottom right, #121212, #007bff); /* Gris oscuro a azul */
+  padding: 10px;
+}
+
+.producto-card {
+  margin-bottom: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  overflow: hidden;
+}
+
+.producto-card ion-thumbnail {
+  height: 120px;  /* Altura ajustada */
+  width: 120px;   /* Ancho ajustado */
+}
+
+.producto-card ion-thumbnail img {
+  height: 100%;   /* La imagen ocupa toda la altura del contenedor */
+  width: 100%;    /* La imagen ocupa todo el ancho del contenedor */
+  object-fit: contain;  /* La imagen se ajusta completamente sin recortarse */
+  border-radius: 10px; /* Mantén las esquinas redondeadas */
+}
+
+.titulo-producto {
+  font-size: 1rem;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.precio {
+  margin: 5px 0;
+  font-weight: bold;
+  color: black;
+}
+
+.botones-cantidad {
+  display: flex;
+  align-items: center; /* Alinea los botones verticalmente al centro */
+  justify-content: flex-end; /* Alinea los botones a la derecha */
+  padding: 10px;
+}
+
+.input-cantidad {
+  width: 60px;
+  text-align: center;
+  font-size: 1rem;
+  margin: 0 10px; /* Espacio entre el botón y el input */
+}
+
+.total-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+  padding: 8px 12px;
+  background: #f1f1f1;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: black;
+}
+
+.total-precio {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.boton-comprar-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.btncompra {
+  width: 70%; 
+  border-radius: 30px;
+  font-size: 0.85rem;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+

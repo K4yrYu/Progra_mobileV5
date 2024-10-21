@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Eliminar Usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding contenido-centrado">
+  <ion-card>
+    <ion-item lines="none">
+      <ion-thumbnail slot="start">
+        <img *ngIf="usuarioLlego.foto_usuario; else defaultImage" [src]="usuarioLlego.foto_usuario" alt="sin imagen" />
+        <ng-template #defaultImage>
+          <img src="assets/img/user_default_photo.jpg" alt="Imagen predeterminada" />
+        </ng-template>
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ usuarioLlego.username }}</h2>
+        <p><strong>Nombres:</strong> {{ usuarioLlego.nombres_usuario }}</p>
+        <p><strong>Apellidos:</strong> {{ usuarioLlego.apellidos_usuario }}</p>
+        <p><strong>Correo:</strong> {{ usuarioLlego.correo }}</p>
+        <p>
+          <strong>Rol:</strong>
+          {{ usuarioLlego.id_rol === 1 ? 'Administrador' : usuarioLlego.id_rol === 2 ? 'Cliente' : 'Rol desconocido' }}
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+
+  <div class="botones-centrados">
+    <ion-button color="danger" expand="block" (click)="eliminarUsuario()">
+      Eliminar
+    </ion-button>
+    <ion-button color="primary" expand="block" [routerLink]="['/crudusuarios']">
+      Cancelar
+    </ion-button>
+  </div>
+</ion-content>

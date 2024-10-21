@@ -1,0 +1,69 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" text="Volver" icon="arrow-back-outline"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="spacer"></div>
+
+  <div class="register-container">
+    <h2>Registro</h2>
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Nombres</ion-label>
+        <ion-input type="text" [(ngModel)]="nombres" (ngModelChange)="validarFormulario()" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Apellidos</ion-label>
+        <ion-input type="text" [(ngModel)]="apellidos" (ngModelChange)="validarFormulario()" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">RUT</ion-label>
+        <ion-input type="text" [(ngModel)]="rut" (ngModelChange)="validarFormulario()" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Usuario</ion-label>
+        <ion-input type="text" [(ngModel)]="usuario" (ngModelChange)="validarFormulario()" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Correo</ion-label>
+        <ion-input type="text" [(ngModel)]="correo" 
+                   (ngModelChange)="correo = $event.toLowerCase(); validarFormulario()" 
+                   required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Contraseña</ion-label>
+        <ion-input type="password" [(ngModel)]="contrasena" (ngModelChange)="validarFormulario()" required>
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Confirmar Contraseña</ion-label>
+        <ion-input type="password" [(ngModel)]="confirmarContrasena" (ngModelChange)="validarFormulario()" required>
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        </ion-input>
+      </ion-item>
+
+      <p style="color: white;">*PREGUNTA DE SEGURIDAD NO OLVIDAR RESPUESTA</p>
+      <ion-item>
+        <ion-label position="stacked">¿Cuál es tu color favorito?</ion-label>
+        <ion-input [(ngModel)]="respuesta" (ngModelChange)="validarFormulario()" required></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" (click)="registrar()">Registrar</ion-button>
+    </ion-list>
+
+    <p class="mensaje-error" style="color: red; white-space: pre-line;" *ngIf="mensajesValidacion">{{ mensajesValidacion }}</p>
+    <p class="opsAD">¿Ya tienes una cuenta? <a routerLink="/login">Inicia Sesión</a></p>
+  </div>
+</ion-content>

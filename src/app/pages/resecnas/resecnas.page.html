@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" text="Atrás" icon="arrow-back" [routerLink]="['/perfil']"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Mis Reseñas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Validación para mostrar reseñas o un mensaje alternativo -->
+  <ng-container *ngIf="resecnas && resecnas.length > 0; else noResenas">
+    <ion-card *ngFor="let resecna of resecnas" class="reseña-card">
+      <ion-card-header>
+        <ion-card-title>{{ resecna.nombre_prod }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p class="reseña-texto">{{ resecna.text_resecna }}</p>
+        <ion-button color="danger" expand="block" class="boton-eliminar" (click)="eliminarResena(resecna.id_resecna)">
+          Eliminar
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  <!-- Template para cuando no haya reseñas -->
+  <ng-template #noResenas>
+    <ion-card>
+      <ion-card-content>No tienes reseñas registradas.</ion-card-content>
+    </ion-card>
+  </ng-template>
+</ion-content>

@@ -1,0 +1,85 @@
+/* Estilo general del contenido */
+ion-content {
+    --background: none;
+    background: linear-gradient(to bottom right, #121212, #007bff);
+    padding: 10px;
+}
+
+/* Estilo para las tarjetas de reseñas */
+.reseña-card {
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    max-width: 100%; /* Asegura que las tarjetas no excedan el ancho de la pantalla */
+    margin-bottom: 15px;
+}
+
+/* Contenedor de la imagen (tamaño de las imágenes) */
+ion-thumbnail {
+    min-width: 90px;
+    min-height: 90px;
+    max-width: 90px;
+    max-height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 15px;
+}
+
+/* Contenedor de los detalles de la reseña */
+ion-item {
+    --background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+/* Estilo para el contenido de la tarjeta */
+ion-label {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+ion-label h2 {
+    font-size: 1.2rem;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Trunca el texto largo con "..." */
+}
+
+ion-label p {
+    margin: 2px 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Botones de acción */
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+}
+
+.action-buttons ion-button {
+    --border-radius: 8px;
+    font-size: 1rem;
+    flex: 1;
+    margin-right: 10px;
+}
+
+.action-buttons ion-button:last-child {
+    margin-right: 0;
+}
+
+/* Fondo negro para la lista de reseñas */
+ion-list {
+    background: transparent;
+}

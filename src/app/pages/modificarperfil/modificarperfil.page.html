@@ -1,0 +1,52 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" text="Atras" icon="arrow-back" [routerLink]="['/perfil']"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Modificar Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-header>
+      <!-- Foto de perfil, muestra la imagen cargada o la imagen predeterminada -->
+      <img [src]="getImagenUsuario(usuarioModificarLlego.foto_usuario)" alt="Imagen predeterminada" class="profile-image"/>
+
+      <!-- Botón Cambiar con ícono de cámara -->
+      <ion-button expand="block" color="primary" class="btnCCP" (click)="cambiarImagenPerfil()">
+        <ion-icon name="camera"></ion-icon>
+        Cambiar
+      </ion-button>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div class="user-info">
+        <p class="username">Usuario: {{ usuarioModificarLlego.username }}</p>
+        <p class="email">Correo: {{ usuarioModificarLlego.correo }}</p>
+      </div>
+
+      <!-- Etiqueta y Campo de entrada para nombres -->
+      <ion-item class="input-item">
+        <ion-label position="stacked">Nombres</ion-label> <!-- Etiqueta para el campo -->
+        <ion-input placeholder="Nombres" clear-input [(ngModel)]="usuarioModificarLlego.nombres_usuario" required></ion-input>
+      </ion-item>
+
+      <!-- Etiqueta y Campo de entrada para apellidos -->
+      <ion-item class="input-item">
+        <ion-label position="stacked">Apellidos</ion-label> <!-- Etiqueta para el campo -->
+        <ion-input placeholder="Apellidos" clear-input [(ngModel)]="usuarioModificarLlego.apellidos_usuario" required></ion-input>
+      </ion-item>
+
+      <!-- Botón para confirmar la modificación -->
+      <ion-button class="btnCCP" expand="block" color="primary" (click)="onSubmit()">
+        Confirmar
+      </ion-button>
+
+      <!-- Mostrar los mensajes de error si existen -->
+      <div class="message">Puedes modificar todos los campos o solo el que necesites</div>
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+

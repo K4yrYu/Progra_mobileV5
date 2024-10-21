@@ -1,0 +1,100 @@
+ion-content {
+  --background: none;
+  background: linear-gradient(to bottom right, #121212, #007bff); /* Gris oscuro a azul brillante */
+}
+
+/* Sliders (títulos) */
+.juguetes-oferta,
+.consolas-oferta,
+.videojuegos-oferta {
+  display: inline-block; /* Hace que el elemento se expanda horizontalmente */
+  width: 100%; /* Ocupa el 100% del ancho disponible */
+  text-align: left; /* Alinea el texto a la izquierda */
+  border-bottom: 2px solid white; /* Línea en la parte inferior para destacar el texto */
+  padding-bottom: 10px; /* Espacio debajo del texto */
+  margin: 0; /* Elimina el margen predeterminado */
+  color: white;
+}
+
+/* Ajuste de las cards */
+.Jcard,
+.Ccard,
+.JTcard {
+  width: 90%; /* Mantener ancho al 90% */
+  margin: 10px auto; /* Margen superior/inferior para separación suave y centrado */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 10px; /* Bordes redondeados */
+}
+
+/* Estilo general de la página */
+.home-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.home-image {
+  width: 50%;
+  margin: 0 auto 20px;
+  border-radius: 20px;
+}
+
+/* Estilo de los sliders */
+.swiper-container {
+  width: 100%;
+  height: 300px;
+  margin-top: 20px;
+}
+
+.swiper-wrapper {
+  display: flex;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px; /* Espaciado leve dentro de cada slide */
+}
+
+/* Estilo de las cards */
+ion-card {
+  width: 90%;
+  height: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+ion-card-header {
+  padding-bottom: 0;
+}
+
+ion-card-title,
+ion-card-subtitle {
+  text-align: center;
+  font-size: 12px;
+  color: black;
+}
+
+ion-card-content {
+  text-align: center;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 100%; /* Asegura que ocupe toda la altura disponible */
+}
+
+ion-button {
+  margin: auto; /* Asegura que el botón esté centrado */
+}
+
+/* Estilos específicos para las imágenes de las cards */
+.Jcard img,
+.Ccard img,
+.JTcard img {
+  width: 100%; /* Asegura que la imagen ocupe todo el ancho del card */
+  height: auto; /* Mantiene la relación de aspecto de la imagen */
+  border-radius: 10px; /* Bordes redondeados para las imágenes */
+}

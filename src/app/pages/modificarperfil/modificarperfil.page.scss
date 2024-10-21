@@ -1,0 +1,46 @@
+ion-content {
+    --background: none;
+    background: linear-gradient(to bottom right, #121212, #007bff); /* Fondo gris oscuro a azul */
+  }
+  
+  .profile-image {
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 16px auto;
+  }
+  
+  .message {
+    color: rgb(0, 0, 0);
+  }
+  
+  .btnCCP {
+    justify-content: center;
+    background-color: blue;
+    color: white;
+    margin-top: 10px; /* Separación debajo del botón */
+  }
+  
+  .input-item {
+    margin-bottom: 40px; /* Separación hacia abajo de cada campo */
+  }
+  
+  .user-info {
+    margin-bottom: 40px; /* Agrega espacio debajo de la información del usuario */
+  }
+  
+  .username, .email {
+    font-size: 1.2rem; /* Aumenta el tamaño de la fuente */
+    font-weight: bold; /* Resalta el texto */
+    color: rgb(0, 0, 0); /* Cambia el color del texto a blanco */
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  

@@ -1,0 +1,35 @@
+ion-content {
+    --background: none;
+    background: linear-gradient(to bottom right, #121212, #007bff);
+    padding: 16px;
+  }
+  
+  .reseña-card {
+    margin-bottom: 16px;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #fff;
+  }
+  
+  ion-card-title {
+    font-size: 1.4rem;
+    color: #000000;
+    text-align: center;
+  }
+  
+  .reseña-texto {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 12px;
+    line-height: 1.5;
+    word-wrap: break-word;
+  }
+  
+  .boton-eliminar {
+    margin-top: 12px;
+    width: 100%;
+    --background: #ff4d4d;
+    --color: white;
+    border-radius: 8px;
+  }
+  

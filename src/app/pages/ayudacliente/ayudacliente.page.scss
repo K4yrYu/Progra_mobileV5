@@ -1,0 +1,59 @@
+ion-content {
+  --background: none;
+  background: linear-gradient(to bottom right, #121212, #007bff); /* Gris oscuro a azul brillante */
+  padding: 16px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 20px;
+}
+
+h4 {
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.input-label {
+  color: #cfcfcf; /* Color gris claro para el texto del label */
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.input-field, .textarea-field {
+  --background: #1f1f1f; /* Fondo oscuro para los inputs */
+  color: #ffffff;
+}
+
+.textarea-field {
+  min-height: 120px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.silent-toast {
+  background-color: red; // Cambia el color de fondo a rojo
+  color: white; // Cambia el color del texto a blanco para mayor contraste
+}
+

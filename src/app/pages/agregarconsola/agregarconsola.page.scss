@@ -1,0 +1,111 @@
+/* Fondo general del contenido con gradiente */
+ion-content {
+    --background: none;
+    background: linear-gradient(to bottom right, #121212, #007bff); /* Gris oscuro a azul brillante */
+}
+
+/* Contenedor del formulario */
+.agregarconsola-container {
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0); /* Fondo semi-transparente */
+    border-radius: 8px;
+}
+
+/* Estilo para los elementos ion-item dentro de ion-list */
+ion-list ion-item {
+    --ion-item-background: transparent !important; /* Fondo transparente */
+    --color: #ffffff; /* Texto blanco */
+    margin-top: 30px; /* Reducido para dar una separación más uniforme */
+    padding-bottom: 10px; /* Espacio adicional en la parte inferior de cada item */
+}
+
+/* Estilo para los campos de entrada ion-input */
+ion-input, ion-textarea {
+    --background: transparent !important; /* Fondo transparente para los campos de entrada */
+    --color: #ffffff; /* Texto blanco */
+    border: 2px solid rgba(0, 0, 0, 0.3); /* Borde sutil para los campos de entrada */
+    width: calc(100% - 30px); /* Ajuste de ancho */
+    border-radius: 5px; /* Bordes redondeados */
+    margin-top: 5px; /* Espacio extra entre el label y el input */
+    font-size: 1.1em; /* Tamaño del texto dentro del input para mejor legibilidad */
+    margin-left: 20px; /* Añade separación a la izquierda para evitar que se vean pegados a las etiquetas */
+    padding: 10px !important; /* Espacio interno uniforme */
+}
+
+/* Estilo para las etiquetas ion-label */
+ion-label {
+    --color: #ffffff; /* Texto blanco */
+    font-size: 1.2em; /* Tamaño más grande para mayor claridad */
+    margin-bottom: 10px; /* Espacio debajo de la etiqueta */
+    margin-right: 10px; /* Añade un margen a la derecha para separar del input */
+}
+
+/* Estilo general del formulario */
+ion-list {
+    background: #ffffff00; /* Fondo transparente para ion-list */
+}
+
+/* Estilo para los campos de entrada personalizados */
+.custom-input {
+    --color: #ffffff; /* Texto blanco */
+    border: 2px solid #ffffff; /* Borde blanco */
+    padding: 8px; /* Añade un poco de padding dentro del input */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Separación para el botón de subir foto */
+.boton-foto {
+    margin-bottom: 10px; /* Separación entre el botón y los elementos de abajo */
+}
+
+/* Contenedor para la imagen cargada */
+.imagen-container {
+    display: flex;
+    justify-content: center; /* Centra la imagen horizontalmente */
+    align-items: center; /* Centra la imagen verticalmente si es necesario */
+    margin-top: 20px;
+    height: 250px; /* Establece un alto fijo para el contenedor */
+    width: 100%; /* Asegura que ocupe el 100% del ancho */
+}
+
+/* Estilo para la imagen de la consola */
+.imagen-juego {
+    height: 100%; /* La imagen ocupa todo el alto del contenedor */
+    width: auto; /* Ajusta el ancho automáticamente para mantener la proporción */
+    object-fit: cover; /* Asegura que la imagen se ajuste bien sin distorsión */
+    border-radius: 8px;
+}
+
+/* Estilo para los mensajes de error */
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-left: 16px;
+}
+
+/* Estilo para los botones */
+.boton {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    font-size: 1.2em; /* Tamaño más grande para el texto de los botones */
+    color: #ffffff; /* Texto blanco en los botones */
+    --background: #007bff; /* Fondo azul brillante para los botones */
+    margin-top: 15px; /* Espacio entre los botones */
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    font-size: 3pc;
+}
+
+.camera-icon {
+    color: white;
+    size: 1pc;
+    padding-left: 1pc;
+}

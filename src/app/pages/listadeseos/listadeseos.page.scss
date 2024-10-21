@@ -1,0 +1,68 @@
+ion-content {
+  --background: none;
+  background: linear-gradient(to bottom right, #121212, #007bff); /* Gris oscuro a azul brillante */
+}
+
+.wishlist-content {
+  padding: 1rem;
+}
+
+.product-row {
+  margin-bottom: 25px; /* Espacio entre productos */
+  align-items: center;
+}
+
+.product-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  overflow: hidden; /* Asegura que la imagen no sobresalga del contenedor */
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* La imagen se ajustará al contenedor sin recortar ni deformar */
+  border-radius: inherit; /* Mantiene el mismo radio que el contenedor */
+}
+
+.product-info {
+  padding-left: 25px; /* Mayor separación entre imagen y texto */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.product-info h2 {
+  margin: 0;
+  font-size: 16px; /* Reducir tamaño del título */
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 6px; /* Separación entre título y precio */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.product-info p {
+  margin: 0;
+  font-size: 14px; /* Reducir tamaño del precio */
+  color: #000000;
+}
+
+.button-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Espacio entre botones */
+  align-items: center;
+  justify-content: center;
+}
+
+ion-button {
+  --padding-start: 8px;
+  --padding-end: 8px;
+  --border-radius: 5px;
+  font-size: 10px; /* Tamaño reducido del texto del botón */
+  width: 100%; /* Ocupa todo el ancho del contenedor */
+  text-align: center;
+}

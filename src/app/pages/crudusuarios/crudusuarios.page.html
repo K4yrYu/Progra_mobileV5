@@ -1,0 +1,55 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" text="Atrás" icon="arrow-back-outline" [routerLink]="['/paneladmin']"></ion-back-button>
+    </ion-buttons>
+    <ion-title>CRUD Usuarios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="add-button-container">
+    <ion-button (click)="agregarUsuario()">
+      <ion-icon slot="start" name="add"></ion-icon>
+      Agregar Usuario
+    </ion-button>
+  </div>
+
+  <!-- Lista de usuarios -->
+  <ion-list>
+    <ion-card *ngFor="let user of arregloUsuarios" class="usuario-card">
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <img *ngIf="user.foto_usuario; else defaultImage" [src]="user.foto_usuario" alt="sin imagen" />
+          <ng-template #defaultImage>
+            <img src="assets/img/user_default_photo.jpg" alt="Imagen predeterminada" />
+          </ng-template>
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ user.username }}</h2>
+          <p><strong>Nombres:</strong> {{ user.nombres_usuario }}</p>
+          <p><strong>Apellidos:</strong> {{ user.apellidos_usuario }}</p>
+          <p class="correo"><strong>Correo:</strong> {{ user.correo }}</p>
+          <p><strong>Estado:</strong> {{ user.estado_user === 1 ? 'Activo' : user.estado_user === 0 ? 'Baneado' : 'Rol desconocido' }}</p>
+          <p><strong>Rol:</strong> {{ user.id_rol === 1 ? 'Administrador' : user.id_rol === 2 ? 'Cliente' : 'Rol desconocido' }}</p>
+        </ion-label>
+      </ion-item>
+
+      <!-- Botones de acción para editar y eliminar -->
+      <ion-row class="action-buttons">
+        <ion-col>
+          <ion-button color="primary" expand="block" (click)="editarUsuario(user)">
+            <ion-icon slot="start" name="create"></ion-icon>
+            Editar
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button color="danger" expand="block" (click)="eliminarUsuario(user)">
+            <ion-icon slot="start" name="trash"></ion-icon>
+            Eliminar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-list>
+</ion-content>

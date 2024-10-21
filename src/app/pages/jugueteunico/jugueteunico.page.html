@@ -1,0 +1,72 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" text="Atrás" icon="arrow-back" [routerLink]="['/juguetes']"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Juguete Único</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="jugueteU-container">
+    <img [src]="jugueteLlego.foto_prod" alt="sin imagen" class="juguete-imagen" />
+    <h3>{{ jugueteLlego.nombre_prod }}</h3>
+    <p><strong>Precio:</strong></p>
+    <p>{{ jugueteLlego.precio_prod | currency: 'CLP':'symbol':'1.0-0' }}</p>
+    <p><strong>Stock:</strong></p>
+    <p>{{ jugueteLlego.stock_prod }}</p>
+
+    <ion-row>
+      <ion-col size="6">
+        <ion-button expand="block" fill="solid" (click)="agregarAlCarrito()">
+          <ion-icon slot="start" name="cart"></ion-icon>
+          Añadir al carrito
+        </ion-button>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-button *ngIf="!estaEnListaDeseos" expand="block" color="danger" (click)="agregarAListaDeseos()">
+          <ion-icon slot="start" name="heart"></ion-icon>
+          Lista de deseos
+        </ion-button>
+
+        <ion-button *ngIf="estaEnListaDeseos" expand="block" color="secondary" (click)="quitarDeListaDeseos()">
+          <ion-icon slot="start" name="heart-dislike"></ion-icon>
+          Quitar de lista de deseos
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div class="section-separator"></div>
+
+  <h4>Descripción:</h4>
+  <div class="descripcion-container">
+    <p class="descripJuguete">{{ jugueteLlego.descripcion_prod }}</p>
+  </div>
+
+  <div class="section-separator"></div>
+
+  <h4>Comentarios:</h4>
+
+  <ion-card class="resecnas-container" *ngIf="!hayResecna">
+    <div class="textoreseña-container">
+      <textarea [(ngModel)]="laresecna" class="reseña-input" placeholder="Escribe tu reseña aquí"></textarea>
+    </div>
+    <div class="btn-container">
+      <ion-button class="btns" fill="solid" (click)="SubirResecna()">Subir</ion-button>
+    </div>
+  </ion-card>
+
+  <div class="reseñas">
+    <div class="reseña" *ngFor="let resecna of arregloresecnas">
+      <ion-avatar class="avatar">
+        <img [src]="getImagenUsuario(resecna.foto_usuario)" class="profile-image" alt="Imagen de usuario" />
+      </ion-avatar>
+      <div class="reseña-texto">
+        <h5>{{ resecna.username }}</h5>
+        <p>{{ resecna.text_resecna }}</p>
+      </div>
+    </div>
+  </div>
+</ion-content>
