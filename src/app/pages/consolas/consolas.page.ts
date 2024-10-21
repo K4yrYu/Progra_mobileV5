@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { AlertasService } from 'src/app/services/alertas.service'; // Asegúrate de que la ruta sea correcta
-import { ManejodbService } from 'src/app/services/manejodb.service';
+import { AlertasService } from 'src/app/services/alertas.service'; // Ruta correcta al servicio
+import { ManejodbService } from 'src/app/services/manejodb.service'; // Ruta correcta al servicio
 
 @Component({
   selector: 'app-consolas',
@@ -10,60 +10,49 @@ import { ManejodbService } from 'src/app/services/manejodb.service';
 })
 export class ConsolasPage implements OnInit {
 
-  consolaSelect: any;
+  consolaSelect: any; // Para almacenar la consola seleccionada
 
-  arregloConsolas: any[] = [
-    {
-      id_producto: '',
-      nombre_prod: '',
-      precio_prod: '',
-      stock_prod:  '',
-      descripcion_prod: '',
-      foto_prod: '',
-      estatus: '',
-      id_categoria: '',
-    },
-  ];
+  arregloConsolas: any[] = []; // Consolas originales
+  ConsolasFiltradas: any[] = []; // Consolas filtradas
 
-  ConsolasFiltradas: any[] = []; // Para almacenar las consolas filtradas
-
-  constructor(private alertasService: AlertasService, private bd: ManejodbService, private router: Router) {}
+  constructor(
+    private alertasService: AlertasService,
+    private bd: ManejodbService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.ConsolasFiltradas = this.arregloConsolas; // Mostrar todos los juegos inicialmente
-
+    // Cargar todas las consolas al iniciar
     this.bd.dbState().subscribe(data => {
       if (data) {
         this.bd.fetchConsolas().subscribe(res => {
           this.arregloConsolas = res;
-          this.ConsolasFiltradas = res; // Actualizar también los juegos filtrados
+          this.ConsolasFiltradas = res; // Mostrar todas las consolas al inicio
         });
       }
     });
   }
 
-  irConsolaUnico(x: any) {
+  irConsolaUnico(consola: any) {
     let navigationExtras: NavigationExtras = {
       state: {
-        consolaSelect: x
+        consolaSelect: consola
       }
     };
     this.router.navigate(['/consolaunica'], navigationExtras);
   }
 
   compra() {
-    this.alertasService.presentAlert('Añadido al carro', '¡Gracias!');
+    this.alertasService.presentAlert('Añadido al carro', '¡Gracias por tu compra!');
   }
 
   buscarConsola(event: any) {
     const textoBusqueda = event.target.value.toLowerCase();
 
-    // Si el campo de búsqueda está vacío, mostramos todos los juegos
     if (textoBusqueda.trim() === '') {
-      this.ConsolasFiltradas = this.arregloConsolas;
+      this.ConsolasFiltradas = this.arregloConsolas; // Mostrar todas si no hay búsqueda
     } else {
-      // Filtrar los juegos según el texto de búsqueda
-      this.ConsolasFiltradas = this.arregloConsolas.filter(consola => 
+      this.ConsolasFiltradas = this.arregloConsolas.filter(consola =>
         consola.nombre_prod.toLowerCase().includes(textoBusqueda)
       );
     }

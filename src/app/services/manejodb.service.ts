@@ -227,7 +227,6 @@ export class ManejodbService {
       }).then((db: SQLiteObject) => {
         this.database = db;
         this.creartablas();
-        this.alertasService.presentAlert("BD creada con Exito", "NICE"); // Alerta de éxito
         this.isDBReady.next(true);
         this.dbCreated = true; // Marca que la base de datos fue creada
       }).catch(e => {
@@ -427,7 +426,6 @@ export class ManejodbService {
       }
       return items; // Retorna el arreglo de usuarios
     }).catch(error => {
-      this.alertasService.presentAlert("ERROR", "USUARIO NO ENCONTRADO" + error);
       return []; // Retorna un arreglo vacío en caso de error
     });
   }
@@ -441,7 +439,6 @@ export class ManejodbService {
       }
       return itemsUPEC; // Retorna el arreglo de usuarios
     }).catch(error => {
-      this.alertasService.presentAlert("ERROR", "USUARIO NO ENCONTRADO: " + error);
       return []; // Retorna un arreglo vacío en caso de error
     });
   }
@@ -454,7 +451,6 @@ export class ManejodbService {
       }
       return itemsUPMS; // Retorna el arreglo de usuarios
     }).catch(error => {
-      this.alertasService.presentAlert("ERROR", "USUARIO NO ENCONTRADO: " + error);
       return []; // Retorna un arreglo vacío en caso de error
     });
   }
@@ -1592,6 +1588,21 @@ obtenerIdUsuarioLogueado() {
     }
   }
 
+  async restarStock(idProducto: number, cantidad: number): Promise<void> {
+    const query = `
+      UPDATE productos 
+      SET stock_prod = stock_prod - ? 
+      WHERE id_producto = ?;
+    `;
+    try {
+      await this.database.executeSql(query, [cantidad, idProducto]);
+      console.log(`Stock del producto ${idProducto} reducido en ${cantidad}`);
+    } catch (error) {
+      console.error(`Error al restar stock del producto ${idProducto}:`, error);
+      throw error;
+    }
+  }
+
   //calcular precio final 
   async preciofinal(idVenta: any): Promise<number> {
     const query = `
@@ -1842,5 +1853,4 @@ async validarRespuestaSeguridad(username: string, respuesta: string): Promise<bo
       this.alertasService.presentAlert("Eliminar", "Error: " + JSON.stringify(e));
     }
   }
-
 }

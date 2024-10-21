@@ -9,44 +9,47 @@ import { ManejodbService } from 'src/app/services/manejodb.service';
   styleUrls: ['./juguetes.page.scss'],
 })
 export class JuguetesPage implements OnInit {
-  jugueteSelect: any;
-  arregloJuguetes: any[] = [];
-  juguetesFiltrados: any[] = []; // Para almacenar los juguetes filtrados
+  jugueteSelect: any; // Juguete seleccionado
+  arregloJuguetes: any[] = []; // Todos los juguetes
+  juguetesFiltrados: any[] = []; // Juguetes filtrados por búsqueda
 
-  constructor(private alertasService: AlertasService, private bd: ManejodbService, private router: Router) {}
+  constructor(
+    private alertasService: AlertasService,
+    private bd: ManejodbService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
+    // Cargar todos los juguetes al iniciar
     this.bd.dbState().subscribe(data => {
       if (data) {
         this.bd.fetchJuguetes().subscribe(res => {
           this.arregloJuguetes = res;
-          this.juguetesFiltrados = res; // Inicializar con todos los juguetes
+          this.juguetesFiltrados = res; // Mostrar todos los juguetes al inicio
         });
       }
     });
   }
 
-  irJugueteUnico(x: any) {
+  irJugueteUnico(juguete: any) {
     let navigationExtras: NavigationExtras = {
       state: {
-        jugueteSelect: x
+        jugueteSelect: juguete
       }
     };
     this.router.navigate(['/jugueteunico'], navigationExtras);
   }
 
   compra() {
-    this.alertasService.presentAlert('Añadido al carro', '¡Gracias!');
+    this.alertasService.presentAlert('Añadido al carro', '¡Gracias por tu compra!');
   }
 
   buscarJuguete(event: any) {
     const textoBusqueda = event.target.value.toLowerCase();
 
-    // Si el campo de búsqueda está vacío, mostramos todos los juguetes
     if (textoBusqueda.trim() === '') {
-      this.juguetesFiltrados = this.arregloJuguetes;
+      this.juguetesFiltrados = this.arregloJuguetes; // Mostrar todos si no hay búsqueda
     } else {
-      // Filtrar los juguetes según el texto de búsqueda
       this.juguetesFiltrados = this.arregloJuguetes.filter(juguete =>
         juguete.nombre_prod.toLowerCase().includes(textoBusqueda)
       );

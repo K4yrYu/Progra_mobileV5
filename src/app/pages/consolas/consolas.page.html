@@ -4,9 +4,9 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-back-button defaultHref="/" text="Carrito" icon="cart-outline" [routerLink] = "['/carrito']"></ion-back-button>
+      <ion-back-button defaultHref="/" text="Carrito" icon="cart-outline" [routerLink]="['/carrito']"></ion-back-button>
     </ion-buttons>
-    <ion-title>Catalogo de Consolas</ion-title>
+    <ion-title>Catálogo de Consolas</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -19,7 +19,7 @@
     </div>
   </ng-container>
 
-  <!-- Mostrar la lista de productos si hay resultados -->
+  <!-- Mostrar la lista de consolas si hay resultados -->
   <ng-template #listaConsolas>
     <ion-card class="consola-card" *ngFor="let consola of ConsolasFiltradas">
       <ion-item lines="none" class="consola-item">
@@ -31,12 +31,9 @@
           <p>$: {{ consola.precio_prod | currency:'CLP':'symbol':'1.0-0' }}</p>
         </ion-label>
       </ion-item>
+
       <ion-item lines="none" class="add-cart-item">
-        <ng-container *ngIf="consola.estatus === 1; else noDisponible">
-          <ion-button fill="outline" slot="end" (click)="compra()">
-            <ion-icon slot="start" name="cart-outline"></ion-icon>
-            Añadir al carro
-          </ion-button>
+        <ng-container *ngIf="consola.estatus === 1 && consola.stock_prod > 0; else noDisponible">
           <ion-button fill="outline" slot="end" (click)="irConsolaUnico(consola)">
             Ver Producto
           </ion-button>

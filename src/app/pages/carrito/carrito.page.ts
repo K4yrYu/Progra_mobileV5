@@ -24,6 +24,7 @@ export class CarritoPage implements OnInit {
 
 
   async ngOnInit() {
+    await this.cargarProductos();
   }
 
 
@@ -56,16 +57,17 @@ export class CarritoPage implements OnInit {
     try {
       this.productos = await this.bd.obtenerCarroPorUsuario(this.idVentaActiva);
   
-      // Filtrar productos disponibles y sin stock
-      this.productosDisponibles = this.productos.filter(p => p.cantidad_d > 0);
+      // Separar productos sin stock y disponibles
       this.productosSinStock = this.productos.filter(p => p.cantidad_d === 0);
-
+      this.productosDisponibles = this.productos.filter(p => p.cantidad_d > 0);
+  
+      // Determinar si mostrar la sección de sin stock
       this.mostrarSinStock = this.productosSinStock.length > 0;
   
-      console.log('Productos cargados en el carrito:', this.productos);
       console.log('Productos sin stock:', this.productosSinStock);
+      console.log('Productos disponibles:', this.productosDisponibles);
   
-      this.cd.detectChanges();  // Forzar la actualización de la vista
+      this.cd.detectChanges(); // Forzar actualización de la vista
     } catch (error) {
       console.error('Error al cargar productos del carrito:', error);
       this.alertasService.presentAlert('Error', 'No se pudieron cargar los productos.');
@@ -108,18 +110,18 @@ export class CarritoPage implements OnInit {
     }
   }
 
-/*
+
   async RestarStockAlComprar() {
     try {
       for (let producto of this.productosDisponibles) {
-        await this.bd.(this.idVentaActiva, producto.id_producto);
+        await this.bd.restarStock(producto.id_producto, producto.cantidad_d);
       }
       await this.cargarProductos();  // Recargar productos
       this.alertasService.presentAlert('Productos sin stock eliminados', '');
     } catch (error) {
       console.error('Error al eliminar productos sin stock:', error);
     }
-  } */
+  } 
 
 
   async actualizarPrecioTotal() {
@@ -139,9 +141,11 @@ export class CarritoPage implements OnInit {
 
 
   async COMPRAAAAR(){
+    await this.RestarStockAlComprar();
     const idUsuario = await this.bd.obtenerIdUsuarioLogueado();
     await this.bd.confirmarCompra(this.idVentaActiva, idUsuario, this.totalVENTA);
     await this.actualizarPrecioTotal();  // Actualizamos el total.
     await this.cargarProductos();
+    
   }
 }
