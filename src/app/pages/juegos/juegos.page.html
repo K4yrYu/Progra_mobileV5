@@ -13,7 +13,7 @@
 <ion-content [fullscreen]="true">
   <ion-searchbar (ionInput)="buscarJuego($event)"></ion-searchbar>
 
-  <ng-container *ngIf="juegosFiltrados.length === 0; else listaJuegos">
+  <ng-container *ngIf="juegosFiltrados.length <= 0; else listaJuegos">
     <div class="mensaje-centrado">
       <p>Producto no encontrado</p>
     </div>
