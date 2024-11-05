@@ -16,6 +16,7 @@ import { Resecnasyuser } from './resecnasyuser';
 import { Resecnascrud } from './resecnascrud';
 import { Favs } from './favs';
 import { Favsvan } from './favsvan';
+import { Productos } from './productos';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,19 @@ export class ManejodbService {
   loggin!: any;
   public database!: SQLiteObject;
   private dbCreated: boolean = false; // Propiedad para rastrear si la BD ya fue creada
+
+  productoVerf: any = [
+    {
+      id_producto: '',
+      nombre_prod: '',
+      precio_prod: '',
+      stock_prod: '',
+      descripcion_prod: '',
+      foto_prod: '',
+      estatus: '',
+      id_categoria: ''
+    }
+  ]
 
   ////////////////////////////////// Creación de las tablas///////////////////////////
 
@@ -862,7 +876,38 @@ async eliminarUsuarios(idU: any) {
       return false; // En caso de error, devolvemos false
     }
   }
+
+
   
+  //------------------------------------------------------------------------
+
+  async consultarProductoPorId(idProducto: any) {
+    try {
+        const resp = await this.database.executeSql(
+            'SELECT id_producto, nombre_prod, precio_prod, stock_prod, descripcion_prod, foto_prod, estatus, id_categoria FROM producto WHERE id_producto = ?',
+            [idProducto]
+        );
+
+        let itemsP: Productos[] = [];
+        if (resp.rows.length > 0) {
+            for (var i = 0; i < resp.rows.length; i++) {
+              itemsP.push({
+                    id_producto: resp.rows.item(i).id_producto,
+                    nombre_prod: resp.rows.item(i).nombre_prod,
+                    precio_prod: resp.rows.item(i).precio_prod,
+                    stock_prod: resp.rows.item(i).stock_prod,
+                    descripcion_prod: resp.rows.item(i).descripcion_prod,
+                    foto_prod: resp.rows.item(i).foto_prod,
+                    estatus: resp.rows.item(i).estatus,
+                    id_categoria: resp.rows.item(i).id_categoria,
+                });
+            }
+        }
+        return itemsP;
+    } catch (error) {
+        return null; // Retornar null en caso de error
+    }
+}
 
 
   ////////--JUEGOS/////////////////////////////////////////////////////////////
@@ -883,7 +928,7 @@ async eliminarUsuarios(idU: any) {
             id_categoria: resp.rows.item(i).id_categoria
           });
         }
-      }
+      } 
       this.listadoJuegos.next(itemsP as any);
     } catch (error) {
       
@@ -1489,6 +1534,10 @@ obtenerIdUsuarioLogueado() {
     `;
   
     try {
+      this.productoVerf === await this.consultarProductoPorId(idProducto);
+      if ( this.productoVerf.stock <= 0 ){
+        return this.alertasService.presentAlert("Alcanzado limite de stock","No queda mas de ese producto");
+      }
       await this.database.executeSql(query, [idVenta, idProducto]);
       await this.preciofinal(idVenta);  // Actualiza el precio total después del cambio
     } catch (error) {

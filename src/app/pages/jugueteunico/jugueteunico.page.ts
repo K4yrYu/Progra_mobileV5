@@ -49,8 +49,6 @@ export class JugueteunicoPage implements OnInit {
 
 
   ///CARRITO SECCION
-
-
   async verificarOCrearVenta() {
     try {
       this.idUserLogged = await this.bd.obtenerIdUsuarioLogueado();

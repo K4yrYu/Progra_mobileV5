@@ -15,6 +15,7 @@ export class CarritoPage implements OnInit {
   idVentaActiva: number | null = null;
   mostrarSinStock: boolean = true;
   totalVENTA: number = 0; 
+  wasaborrar: any[] = [];
 
   constructor(
     private alertasService: AlertasService,
@@ -58,6 +59,7 @@ export class CarritoPage implements OnInit {
       this.productos = await this.bd.obtenerCarroPorUsuario(this.idVentaActiva);
   
       // Separar productos sin stock y disponibles
+      //this.productosSinStock = this.productos.filter(p => p.estatus === 0); estatus = 0 productos no disponibles, config mañana
       this.productosSinStock = this.productos.filter(p => p.cantidad_d === 0);
       this.productosDisponibles = this.productos.filter(p => p.cantidad_d > 0);
   
@@ -110,14 +112,15 @@ export class CarritoPage implements OnInit {
     }
   }
 
-
   async RestarStockAlComprar() {
+    this.wasaborrar = this.productosDisponibles;
     try {
-      for (let producto of this.productosDisponibles) {
+      for (let producto of this.wasaborrar) {
         await this.bd.restarStock(producto.id_producto, producto.cantidad_d);
       }
       await this.cargarProductos();  // Recargar productos
-      this.alertasService.presentAlert('Productos sin stock eliminados', '');
+      this.alertasService.presentAlert('EXITO', 'Stock restado correctamente');
+      this.wasaborrar = [];
     } catch (error) {
       console.error('Error al eliminar productos sin stock:', error);
     }
