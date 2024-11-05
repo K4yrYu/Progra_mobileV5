@@ -16,8 +16,16 @@ export class RegistroPage implements OnInit {
   correo: string = '';
   contrasena: string = '';
   confirmarContrasena: string = '';
-  respuesta: string = ''; // Nuevo campo para la respuesta de seguridad
+  respuesta: string = ''; // Campo para la respuesta de seguridad
+  preguntaSeleccionada: string = ''; // Campo para la pregunta seleccionada
   mensajesValidacion: string = '';
+
+  preguntasSeguridad = [
+    { value: '1', viewValue: '¿Cuál es tu color favorito?' },
+    { value: '2', viewValue: '¿Cuál es tu comida favorita?' },
+    { value: '3', viewValue: '¿Nombre de tu mascota?' },
+    { value: '4', viewValue: '¿Tu comuna actual?' },
+  ];
 
   arregloUsuarios: any[] = [];
 
@@ -48,7 +56,7 @@ export class RegistroPage implements OnInit {
 
     if (errores.length === 0) {
       // Si no hay errores, proceder con el registro
-      this.bd.agregarUsuariosCliente(this.rut, this.nombres, this.apellidos, this.usuario, this.contrasena, this.correo, this.respuesta); // Pasar respuesta de seguridad
+      this.bd.agregarUsuariosCliente(this.rut, this.nombres, this.apellidos, this.usuario, this.contrasena, this.correo, this.respuesta, ); // Pasar respuesta y pregunta de seguridad
       this.router.navigate(['/login']);
       this.reiniciarCampos(); // Reiniciar campos después del registro
     }
@@ -58,7 +66,7 @@ export class RegistroPage implements OnInit {
     let errores: string[] = [];
 
     // Verificar si falta algún campo
-    const camposVacios = !this.nombres || !this.apellidos || !this.rut || !this.usuario || !this.correo || !this.contrasena || !this.confirmarContrasena || !this.respuesta;
+    const camposVacios = !this.nombres || !this.apellidos || !this.rut || !this.usuario || !this.correo || !this.contrasena || !this.confirmarContrasena || !this.respuesta || !this.preguntaSeleccionada;
 
     if (camposVacios) {
       errores.push('Todos los campos son obligatorios.');
@@ -112,6 +120,7 @@ export class RegistroPage implements OnInit {
     this.contrasena = '';
     this.confirmarContrasena = '';
     this.respuesta = ''; // Reiniciar respuesta de seguridad
+    this.preguntaSeleccionada = ''; // Reiniciar pregunta de seguridad
     this.mensajesValidacion = '';
   }
 

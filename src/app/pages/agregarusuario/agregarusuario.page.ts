@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertasService } from 'src/app/services/alertas.service';
-import { CamaraService } from 'src/app/services/camara.service'; // Importar el servicio de cámara
+import { CamaraService } from 'src/app/services/camara.service';
 import { ManejodbService } from 'src/app/services/manejodb.service';
 
 interface Usuario {
@@ -14,7 +14,8 @@ interface Usuario {
   confirmarContrasena: string;
   rol: string;
   estado: string;
-  foto?: string; // Propiedad opcional para la foto
+  foto?: string;
+  preguntaSeguridad?: string;
 }
 
 @Component({
@@ -35,9 +36,9 @@ export class AgregarusuarioPage {
     estado: '',
   };
 
-  respuestaSeguridad: string = ''; // Nueva propiedad para la respuesta de seguridad
+  respuestaSeguridad: string = '';
 
-  // Opciones de roles y estados
+  // Opciones de roles, estados y preguntas de seguridad
   roles = [
     { value: '1', viewValue: 'Administrador' },
     { value: '2', viewValue: 'Cliente' },
@@ -48,14 +49,20 @@ export class AgregarusuarioPage {
     { value: '0', viewValue: 'Baneado' },
   ];
 
-  // Variables de control para los mensajes de error
+  preguntasSeguridad = [
+    { value: '1', viewValue: '¿Cuál es tu color favorito?' },
+    { value: '2', viewValue: '¿Cuál es tu comida favorita?' },
+    { value: '3', viewValue: '¿ Nombre de tu mascota?' },
+    { value: '4', viewValue: '¿Tu comuna actual?' },
+  ];
+
   errorCampos: boolean = false;
   errorCorreo: boolean = false;
   errorCorreoExistente: boolean = false;
   errorContrasena: boolean = false;
   errorFormatoContrasena: boolean = false;
   errorRut: boolean = false;
-  errorUsuarioExistente: boolean = false; // Para manejar el error de usuario existente
+  errorUsuarioExistente: boolean = false;
 
   constructor(
     private router: Router,
@@ -77,7 +84,7 @@ export class AgregarusuarioPage {
   async agregarFoto() {
     try {
       const foto = await this.camaraService.takePicture();
-      this.usuario.foto = foto; // Guardar la URL de la foto
+      this.usuario.foto = foto;
     } catch (error) {
       console.error('Error al tomar la foto:', error);
       this.alertasService.presentAlert('Error', 'No se pudo agregar la foto.');
@@ -86,24 +93,21 @@ export class AgregarusuarioPage {
 
   async validarCorreo() {
     this.errorCorreoExistente = false;
-    // Verificar si el correo ya existe
     const correoExistente = await this.bd.verificarCorreoExistente(this.usuario.correo.toLowerCase());
     if (correoExistente) {
-      this.errorCorreoExistente = true; // Marcar el error de correo existente
-      return; // Salir si el correo ya existe
+      this.errorCorreoExistente = true;
+      return;
     }
   }
 
   async validarCampos() {
-    // Reiniciar errores antes de la validación
     this.errorCampos = false;
     this.errorCorreo = false;
     this.errorContrasena = false;
     this.errorFormatoContrasena = false;
     this.errorRut = false;
-    this.errorUsuarioExistente = false; // Reiniciar el error de usuario existente
+    this.errorUsuarioExistente = false;
 
-    // Verifica si algún campo está vacío
     if (
       !this.usuario.nombres ||
       !this.usuario.apellidos ||
@@ -112,46 +116,41 @@ export class AgregarusuarioPage {
       !this.usuario.usuario ||
       !this.usuario.contrasena ||
       !this.usuario.confirmarContrasena ||
-      !this.respuestaSeguridad // Verificar respuesta de seguridad
+      !this.usuario.preguntaSeguridad ||
+      !this.respuestaSeguridad
     ) {
       this.errorCampos = true;
-      return; // Salir si hay errores
+      return;
     }
 
-    // Verifica si el correo es válido
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(this.usuario.correo)) {
       this.errorCorreo = true;
-      return; // Salir si hay errores
+      return;
     }
 
-    // Verifica el formato del RUT
     const rutPattern = /^\d{1,8}-[0-9kK]{1}$/;
     if (!rutPattern.test(this.usuario.rut)) {
       this.errorRut = true;
-      return; // Salir si hay errores
+      return;
     }
 
-    // Verifica si las contraseñas coinciden
     if (this.usuario.contrasena !== this.usuario.confirmarContrasena) {
       this.errorContrasena = true;
-      return; // Salir si hay errores
+      return;
     }
 
-    // Verifica el formato de la contraseña
     const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\|`"'=-])[A-Za-z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\|`"'=-]{6,}$/;
     if (!passwordPattern.test(this.usuario.contrasena)) {
       this.errorFormatoContrasena = true;
-      return; // Salir si hay errores
+      return;
     }
 
-    // Verificar si el usuario ya existe en la base de datos
     if (await this.bd.verificarUsuarioExistente(this.usuario.usuario)) {
-      this.errorUsuarioExistente = true; // Marcar el error de usuario existente
-      return; // Salir si el usuario ya existe
+      this.errorUsuarioExistente = true;
+      return;
     }
 
-    // Agregar el usuario a la base de datos, incluyendo la respuesta de seguridad
     await this.bd.agregarUsuariosAdmin(
       this.usuario.rut.trim(),
       this.usuario.nombres.trim(),
@@ -162,10 +161,9 @@ export class AgregarusuarioPage {
       this.usuario.foto,
       this.usuario.estado,
       this.usuario.rol,
-      this.respuestaSeguridad // Pasar la respuesta de seguridad
+      this.usuario.preguntaSeguridad,
     );
 
-    // Si todos los campos son válidos, mostrar alerta de éxito
     this.router.navigate(['/crudusuarios']);
   }
 }

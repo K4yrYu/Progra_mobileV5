@@ -55,9 +55,21 @@
       </ion-item>
 
       <p style="color: white;">*PREGUNTA DE SEGURIDAD NO OLVIDAR RESPUESTA</p>
-      <ion-item>
-        <ion-label position="stacked">¿Cuál es tu color favorito?</ion-label>
-        <ion-input [(ngModel)]="respuesta" (ngModelChange)="validarFormulario()" required></ion-input>
+
+      <!-- Campo de Pregunta de Seguridad con opciones -->
+      <ion-item class="separated-item">
+        <ion-label position="stacked">Pregunta de Seguridad</ion-label>
+        <mat-select [(ngModel)]="preguntaSeleccionada" required>
+          <mat-option *ngFor="let pregunta of preguntasSeguridad" [value]="pregunta.value">
+            {{ pregunta.viewValue }}
+          </mat-option>
+        </mat-select>
+      </ion-item>
+
+      <!-- Campo de Respuesta de Seguridad -->
+      <ion-item class="separated-item">
+        <ion-label position="stacked">Respuesta de Seguridad</ion-label>
+        <ion-input type="text" [(ngModel)]="respuesta" (ngModelChange)="validarFormulario()" required></ion-input>
       </ion-item>
 
       <ion-button expand="block" (click)="registrar()">Registrar</ion-button>

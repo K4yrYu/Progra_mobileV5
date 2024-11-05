@@ -90,3 +90,11 @@ mat-select {
   padding: 8px;
   border-radius: 5px;
 }
+
+.separated-item {
+  margin-bottom: 15px; /* Espacio entre los elementos del formulario */
+}
+
+.separated-item ion-label {
+  margin-bottom: 8px; /* Espacio entre la etiqueta y el campo de entrada */
+}

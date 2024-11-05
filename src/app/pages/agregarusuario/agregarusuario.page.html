@@ -12,7 +12,8 @@
       <!-- Imagen del usuario -->
       <ion-item>
         <ion-label>Foto de Usuario</ion-label>
-        <ion-img [src]="usuario.foto || 'assets/img/user_default_photo.jpg'" alt="Foto de perfil" class="profile-image"></ion-img>
+        <ion-img [src]="usuario.foto || 'assets/img/user_default_photo.jpg'" alt="Foto de perfil"
+          class="profile-image"></ion-img>
       </ion-item>
 
       <!-- Botón para agregar foto con ícono dentro -->
@@ -45,7 +46,7 @@
       <ion-item>
         <ion-label position="stacked">Correo</ion-label>
         <ion-input type="text" [(ngModel)]="usuario.correo" class="custom-input"
-                   (ngModelChange)="usuario.correo = $event.toLowerCase(); validarCorreo()" required></ion-input>
+          (ngModelChange)="usuario.correo = $event.toLowerCase(); validarCorreo()" required></ion-input>
       </ion-item>
 
       <ion-item>
@@ -62,14 +63,19 @@
         </ion-input>
       </ion-item>
 
-      <ion-item style="margin: 5px 0;">
-        <p></p>
+      <!-- Selección de Pregunta de Seguridad con separación ajustada -->
+      <ion-item class="separated-item">
+        <ion-label position="stacked">Pregunta de Seguridad</ion-label>
+        <mat-select [(ngModel)]="usuario.preguntaSeguridad">
+          <mat-option *ngFor="let pregunta of preguntasSeguridad" [value]="pregunta.value">
+            {{ pregunta.viewValue }}
+          </mat-option>
+        </mat-select>
       </ion-item>
 
-      <p style="color: white;">*PREGUNTA DE SEGURIDAD NO OLVIDAR RESPUESTA*</p>
-      <p style="color: white;">*NO PUEDE HABER ESPACIOS EN BLANCO*</p>
-      <ion-item>
-        <ion-label position="stacked">¿Cuál es tu color favorito?</ion-label>
+      <!-- Campo de Respuesta de Seguridad con separación ajustada -->
+      <ion-item class="separated-item">
+        <ion-label position="stacked">Respuesta de Seguridad</ion-label>
         <ion-input type="text" class="custom-input" [(ngModel)]="respuestaSeguridad"></ion-input>
       </ion-item>
 
@@ -105,7 +111,8 @@
       </p>
       <p *ngIf="errorContrasena" class="error-message">Las contraseñas no coinciden.</p>
       <p *ngIf="errorFormatoContrasena" class="error-message">
-        La contraseña debe tener al menos 6 caracteres, incluyendo una letra minúscula, una letra mayúscula, un número y un carácter especial.
+        La contraseña debe tener al menos 6 caracteres, incluyendo una letra minúscula, una letra mayúscula, un número y
+        un carácter especial.
       </p>
       <p *ngIf="errorCorreo" class="error-message">El formato del correo es incorrecto.</p>
       <p *ngIf="errorRut" class="error-message">El formato del RUT es incorrecto, debe ser 12345678-k.</p>

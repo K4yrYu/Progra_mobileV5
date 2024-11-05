@@ -99,3 +99,14 @@ ion-list {
   color: white;
 }
 
+/* Estilo para el campo de selección de pregunta de seguridad */
+.separated-item mat-select {
+  border: 2px solid rgba(0, 0, 0, 0.3); /* Borde blanco con transparencia para visibilidad */
+  padding: 8px; /* Espacio interno */
+  color: #ffffff; /* Texto blanco */
+  background-color: transparent; /* Fondo transparente */
+}
+
+.separated-item mat-option {
+  color: #000; /* Color del texto en el menú desplegable */
+}
