@@ -38,7 +38,7 @@
     </div>
 
     <div style="height: 3pc;"></div>
-    
+
     <!-- Swiper Slider (titulo) -->
     <h4 class="consolas-oferta">Próximas Consolas</h4>
     <!-- Swiper Slider (contenido) -->
@@ -89,27 +89,34 @@
 
     <div style="height: 5pc;"></div>
 
-    <!-- Sección de Cómics -->
-    <h4 class="juguetes-oferta">Próximos Cómics</h4>
-    <div class="swiper-container">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide" *ngFor="let comic of colec_comics">
-          <ion-card class="JTcard"> <!-- Usamos la misma clase JTcard -->
-            <img class="imgcardJT" [src]="comic.imagen" alt="Imagen del cómic" /> <!-- Usamos la misma clase imgcardJT -->
-            <ion-card-header>
-              <ion-card-title>{{ comic.precio }}</ion-card-title>
-              <ion-card-subtitle>{{ comic.titulo }} - {{ comic.autor }} ({{ comic.anio }})</ion-card-subtitle>
-            </ion-card-header>
-            <ion-card-content>
-              <ion-button [routerLink]="['/comicdetalle', comic.id]">
-                <ion-icon name="book-outline"></ion-icon>
-                Ver Comic
-              </ion-button>
-            </ion-card-content>
-          </ion-card>
-        </div>
-      </div>
+   <!-- Sección de Cómics -->
+<h4 class="juguetes-oferta">Próximos Cómics</h4>
+<div class="swiper-container">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide" *ngFor="let comic of colec_comics">
+      <ion-card class="comic-card">
+        <!-- Imagen con clase específica para ajuste -->
+        <img class="imgcardJT" [src]="comic.imagen" alt="Imagen del cómic" />
+        
+        <!-- Encabezado con título y subtítulo -->
+        <ion-card-header class="comic-card-header">
+          <ion-card-title class="comic-card-title">{{ comic.precio }}</ion-card-title>
+          <ion-card-subtitle class="comic-card-subtitle">
+            {{ comic.titulo }} - {{ comic.autor }} ({{ comic.anio }})
+          </ion-card-subtitle>
+        </ion-card-header>
+        
+        <!-- Contenido con botón centrado -->
+        <ion-card-content class="comic-card-content">
+          <ion-button class="comic-card-button" [routerLink]="['/comicdetalle', comic.id]">
+            <ion-icon name="book-outline"></ion-icon>
+            Ver Comic
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
     </div>
+  </div>
+</div>
 
     <div style="height: 5pc;"></div>
 

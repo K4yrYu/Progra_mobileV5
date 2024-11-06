@@ -1938,4 +1938,8 @@ async validarRespuestaSeguridad(username: string, respuesta: string): Promise<bo
       this.alertasService.presentAlert("Eliminar", "Error: " + JSON.stringify(e));
     }
   }
+  async actualizarCantidadCarrito(idVenta: number, idProducto: number, cantidad: number) {
+    const query = `UPDATE carrito SET cantidad_d = ? WHERE id_venta = ? AND id_producto = ?`;
+    return this.database.executeSql(query, [cantidad, idVenta, idProducto]);
+  }
 }

@@ -98,3 +98,72 @@ ion-button {
   height: auto; /* Mantiene la relación de aspecto de la imagen */
   border-radius: 10px; /* Bordes redondeados para las imágenes */
 }
+
+////
+/* Estilo de la tarjeta de cómics con tamaño controlado */
+.comic-card {
+  width: 160px; /* Ancho fijo para uniformidad */
+  min-height: 330px; /* Altura mínima para la información */
+  max-height: 350px; /* Limita la altura máxima */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 10px;
+  overflow: hidden;
+}
+
+/* Imagen dentro de la tarjeta ajustada para mostrar toda la imagen */
+.comic-card img {
+  width: 100%; /* Ancho completo de la tarjeta */
+  height: 140px; /* Altura fija para la imagen */
+  object-fit: contain; /* Muestra toda la imagen dentro del contenedor */
+  border-radius: 10px 10px 0 0; /* Bordes redondeados solo en la parte superior */
+  background-color: #00000000; /* Fondo negro para que se note mejor si la imagen no llena todo el espacio */
+}
+
+/* Encabezado y subtítulo */
+.comic-card-header {
+  padding: 5px;
+  text-align: center;
+}
+
+.comic-card-title {
+  font-size: 14px;
+  color: black;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.comic-card-subtitle {
+  font-size: 12px;
+  color: black;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal; /* Permite que el subtítulo ocupe varias líneas */
+  line-height: 1.2; /* Espacio entre líneas */
+  max-height: 40px; /* Limita la altura para mostrar dos líneas */
+}
+
+/* Contenido del botón */
+.comic-card-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+
+/* Estilo del botón */
+.comic-card-button {
+  width: 90%; /* Ajuste del ancho para dejar margen en los lados */
+  --background: #007bff; /* Color de fondo del botón */
+  --color: white; /* Color del texto */
+  border-radius: 5px;
+  padding: 8px 0; /* Ajuste de padding para el botón */
+  font-size: 14px;
+  text-align: center;
+  margin: auto;
+}
+
