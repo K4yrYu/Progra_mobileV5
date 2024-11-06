@@ -1,5 +1,8 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" text="Atras" icon="arrow-back" [routerLink]="['/perfil']"></ion-back-button>
+    </ion-buttons>
     <ion-title>historialventas</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -7,7 +10,39 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">historialventas</ion-title>
+      <ion-title size="large">Retiros</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-list>
+    <!-- Verifica si el arreglo está vacío -->
+    <ng-container *ngIf="arregloVentasTotales.length > 0; else noVentas">
+      <ion-card *ngFor="let retir of arregloVentasTotales">
+        <ion-card-header>
+          <ion-card-subtitle>Usuario: {{ retir.username }}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <p>Monto Total: {{ retir.total }}</p>
+          <p>Fecha: {{ retir.fecha_venta }}</p>
+          <!-- Condición para mostrar el estado del retiro -->
+          <p *ngIf="retir.estado_retiro === 0" style="color: green; font-weight: bold;">
+            Listo para retirar
+          </p>
+          <p *ngIf="retir.estado_retiro === 1" style="color: red; font-weight: bold;">
+            Producto retirado
+          </p>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
+
+    <!-- Template que muestra el mensaje alternativo si no hay ventas -->
+    <ng-template #noVentas>
+      <ion-item>
+        <ion-label class="ion-text-center" color="medium">
+          Aún no hay ventas
+        </ion-label>
+      </ion-item>
+    </ng-template>
+  </ion-list>
 </ion-content>
+
