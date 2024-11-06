@@ -17,6 +17,8 @@ import { Resecnascrud } from './resecnascrud';
 import { Favs } from './favs';
 import { Favsvan } from './favsvan';
 import { Productos } from './productos';
+import { Suspencionresecna } from './suspencionresecna';
+import { Suspencionusuario } from './suspencionusuario';
 
 @Injectable({
   providedIn: 'root'
@@ -76,6 +78,9 @@ export class ManejodbService {
   //seguridad (pregunta y respuesta de seguridad)
   seguridad: string = "CREATE TABLE IF NOT EXISTS seguridad (id_seguridad INTEGER PRIMARY KEY autoincrement, pregunta_seguridad TEXT NOT NULL, respuesta_seguridad TEXT NOT NULL, id_usuario INTEGER, FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario));";
 
+
+  //suspenciones (motivo de baneos + elimniacion de contenidos)
+  suspencion: string = "CREATE TABLE IF NOT EXISTS suspencion (id_suspencion INTEGER PRIMARY KEY autoincrement, motivo_suspencion TEXT NOT NULL, suspendido BOOLEAN NOT NULL, id_usuario INTEGER, id_resecna INTEGER, FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario), FOREIGN KEY (id_resecna) REFERENCES resecna (id_resecna));";
   //--------------------------------------------------------------------------------------------------------
 
   //////////////////////////////////////INSERTS//////////////////////////////////////////////////
@@ -145,6 +150,10 @@ export class ManejodbService {
 
   //seguridad
   listadoSeguridad = new BehaviorSubject([]);
+
+  //suspencion
+  listadoSuspencionUsuarios = new BehaviorSubject([]);
+  listadoSuspencionResecnas = new BehaviorSubject([]);
 
   //var para manipular el estado de la base de datos
   private isDBReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -225,6 +234,14 @@ export class ManejodbService {
 
   fetchFavs(): Observable<Favs[]> {
     return this.listadoFavs.asObservable();
+  }
+
+  fetchSuspencionResecna(): Observable<Suspencionusuario[]> {
+    return this.listadoSuspencionUsuarios.asObservable();
+  }
+
+  fetchSuspencionUsuario(): Observable<Suspencionresecna[]> {
+    return this.listadoSuspencionResecnas.asObservable();
   }
 
   dbState() {
