@@ -8,9 +8,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ng-container *ngIf="productosSinStock.length > 0; else disponiblesSection">
-    <h3 style="color: white; text-align: center;">Productos sin stock</h3>
-    <ion-card class="producto-card" *ngFor="let producto of productosSinStock">
+  <ng-container *ngIf="productosDisponibles.length > 0; else emptyCart">
+    <h3 style="color: white; text-align: center;">Productos disponibles</h3>
+    <ion-card class="producto-card" *ngFor="let producto of productosDisponibles">
       <ion-item lines="none">
         <ion-thumbnail slot="start">
           <img [src]="producto.foto_prod" [alt]="producto.nombre_prod" />
@@ -18,71 +18,49 @@
         <ion-label>
           <h3 class="titulo-producto">{{ producto.nombre_prod }}</h3>
           <p class="precio"><strong>${{ producto.subtotal }}</strong></p>
-          <p style="color: red; font-weight: bold;">Sin stock</p>
         </ion-label>
       </ion-item>
+
+      <ion-row class="botones-cantidad" align-items-center>
+        <ion-col size="auto">
+          <ion-button fill="clear" color="success" (click)="incrementarCantidad(producto)">
+            <ion-icon name="add-circle-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+
+        <ion-col size="auto">
+          <p>{{ producto.cantidad_d }}</p>
+        </ion-col>
+
+        <ion-col size="auto">
+          <ion-button fill="clear" color="danger" (click)="decrementarCantidad(producto)">
+            <ion-icon name="remove-circle-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
     </ion-card>
 
-    <ion-button expand="block" color="primary" (click)="continuar()">
-      Continuar
-    </ion-button>
+    <div class="total-container">
+      <p>Total:</p>
+      <p class="total-precio">${{ totalVENTA }}</p>
+    </div>
+
+    <div class="boton-comprar-container">
+      <ion-button class="btncompra" color="primary" (click)="COMPRAAAAR()">
+        <ion-icon slot="start" name="cart-outline"></ion-icon>
+        Comprar
+      </ion-button>
+    </div>
   </ng-container>
 
-  <ng-template #disponiblesSection>
-    <ng-container *ngIf="productosDisponibles.length > 0; else emptyCart">
-      <h3 style="color: white; text-align: center;">Productos disponibles</h3>
-      <ion-card class="producto-card" *ngFor="let producto of productosDisponibles">
-        <ion-item lines="none">
-          <ion-thumbnail slot="start">
-            <img [src]="producto.foto_prod" [alt]="producto.nombre_prod" />
-          </ion-thumbnail>
-          <ion-label>
-            <h3 class="titulo-producto">{{ producto.nombre_prod }}</h3>
-            <p class="precio"><strong>${{ producto.subtotal }}</strong></p>
-          </ion-label>
-        </ion-item>
-
-        <ion-row class="botones-cantidad" align-items-center>
-          <ion-col size="auto">
-            <ion-button fill="clear" color="success" (click)="incrementarCantidad(producto)">
-              <ion-icon name="add-circle-outline"></ion-icon>
-            </ion-button>
-          </ion-col>
-
-          <ion-col size="auto">
-            <p>{{ producto.cantidad_d }}</p>
-          </ion-col>
-
-          <ion-col size="auto">
-            <ion-button fill="clear" color="danger" (click)="decrementarCantidad(producto)">
-              <ion-icon name="remove-circle-outline"></ion-icon>
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-card>
-
-      <div class="total-container">
-        <p>Total:</p>
-        <p class="total-precio">${{ totalVENTA }}</p>
-      </div>
-
-      <div class="boton-comprar-container">
-        <ion-button class="btncompra" color="primary" (click)="COMPRAAAAR()">
-          <ion-icon slot="start" name="cart-outline"></ion-icon>
-          Comprar
-        </ion-button>
-      </div>
-    </ng-container>
-
-    <ng-template #emptyCart>
-      <h3 style="color: white; text-align: center;">El carrito está vacío</h3>
-      <div>
-        <img src="assets/img/zero-games-james-maslow.gif" alt="GIF">
-      </div>
-      <div class="total-container">
-        <p>Total:</p>
-        <p class="total-precio">$0</p>
-      </div>
-    </ng-template>
+  <ng-template #emptyCart>
+    <h3 style="color: white; text-align: center;">El carrito está vacío</h3>
+    <div>
+      <img src="assets/img/zero-games-james-maslow.gif" alt="GIF">
+    </div>
+    <div class="total-container">
+      <p>Total:</p>
+      <p class="total-precio">$0</p>
+    </div>
   </ng-template>
 </ion-content>
