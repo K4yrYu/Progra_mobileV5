@@ -1539,26 +1539,28 @@ obtenerIdUsuarioLogueado() {
 
   
 
-  //añadir mas stock
   async agregarCantidad(idVenta: any, idProducto: any): Promise<void> {
-    const query = `
-      UPDATE detalle 
-      SET cantidad_d = cantidad_d + 1 
-      WHERE id_venta = ? AND id_producto = ?;
-    `;
-  
-    try {
-      this.productoVerf === await this.consultarProductoPorId(idProducto);
-      if ( this.productoVerf.stock <= 0 ){
-        return this.alertasService.presentAlert("Alcanzado limite de stock","No queda mas de ese producto");
+    // Consulta el producto para verificar su stock
+    const productos = await this.consultarProductoPorId(idProducto);
+    
+    if (productos && productos.length > 0) {
+      const productoActual = productos[0];
+      const query = `
+        UPDATE detalle 
+        SET cantidad_d = MIN(cantidad_d + 1, ${productoActual.stock_prod})
+        WHERE id_venta = ? AND id_producto = ?;
+      `;
+      try {
+        await this.database.executeSql(query, [idVenta, idProducto]);
+      } catch (error) {
+        console.error('Error al agregar cantidad:', error);
+        throw error;
       }
-      await this.database.executeSql(query, [idVenta, idProducto]);
-      await this.preciofinal(idVenta);  // Actualiza el precio total después del cambio
-    } catch (error) {
-      console.error('Error al agregar cantidad:', error);
-      throw error;
+    } else {
+      console.error("Producto no encontrado o error al consultar el stock.");
     }
   }
+  
 
   //restar stock
   async restarCantidad(idVenta: any, idProducto: any): Promise<void> {
@@ -1937,9 +1939,5 @@ async validarRespuestaSeguridad(username: string, respuesta: string): Promise<bo
     } catch (e) {
       this.alertasService.presentAlert("Eliminar", "Error: " + JSON.stringify(e));
     }
-  }
-  async actualizarCantidadCarrito(idVenta: number, idProducto: number, cantidad: number) {
-    const query = `UPDATE carrito SET cantidad_d = ? WHERE id_venta = ? AND id_producto = ?`;
-    return this.database.executeSql(query, [cantidad, idVenta, idProducto]);
   }
 }

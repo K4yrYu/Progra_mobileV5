@@ -85,11 +85,25 @@ export class CarritoPage implements OnInit {
   }
 
   async incrementarCantidad(producto: any) {
-    producto.cantidad_d++;
-    await this.bd.agregarCantidad(this.idVentaActiva, producto.id_producto);
-    this.actualizarPrecioTotal();
-  }
+    // Consulta el stock actual desde la base de datos
+    const productos = await this.bd.consultarProductoPorId(producto.id_producto);
 
+    if (productos && productos.length > 0) {
+      const productoActual = productos[0]; // Extrae el producto con stock actualizado
+
+      if (producto.cantidad_d < productoActual.stock_prod) {
+        producto.cantidad_d++;
+        await this.bd.agregarCantidad(this.idVentaActiva, producto.id_producto);
+        this.actualizarPrecioTotal();
+      } else {
+        // Muestra una alerta si se alcanza el límite del stock
+        this.alertasService.presentAlert("Alcanzado límite de stock", "No queda más de ese producto en inventario");
+      }
+    } else {
+      console.error("Error al consultar el producto.");
+    }
+  }
+  
   async decrementarCantidad(producto: any) {
     if (producto.cantidad_d > 0) {
       producto.cantidad_d--;  // Reducimos cantidad en la vista.
