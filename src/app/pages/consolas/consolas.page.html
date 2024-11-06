@@ -13,7 +13,7 @@
 <ion-content [fullscreen]="true">
   <ion-searchbar (ionInput)="buscarConsola($event)"></ion-searchbar>
 
-  <ng-container *ngIf="ConsolasFiltradas.length === 0; else listaConsolas">
+  <ng-container *ngIf="ConsolasFiltradas.length <= 0; else listaConsolas">
     <div class="mensaje-centrado">
       <p>Producto no encontrado</p>
     </div>

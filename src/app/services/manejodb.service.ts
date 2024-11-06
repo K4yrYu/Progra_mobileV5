@@ -1958,4 +1958,26 @@ async validarRespuestaSeguridad(username: string, respuesta: string): Promise<bo
       this.alertasService.presentAlert("Eliminar", "Error: " + JSON.stringify(e));
     }
   }
+  async obtenerProductosSinStock(): Promise<any[]> {
+    const query = `
+      SELECT id_producto, nombre_prod, stock_prod, estatus
+      FROM producto
+      WHERE stock_prod = 0 OR estatus = 0;
+    `;
+    
+    try {
+      const result = await this.database.executeSql(query, []);
+      const productosSinStock = [];
+      for (let i = 0; i < result.rows.length; i++) {
+        productosSinStock.push(result.rows.item(i));
+      }
+      return productosSinStock;
+    } catch (error) {
+      console.error('Error al obtener productos sin stock o no disponibles:', error);
+      throw error;
+    }
+  }
+
+  
+  
 }

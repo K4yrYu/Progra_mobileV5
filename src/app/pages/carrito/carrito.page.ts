@@ -17,6 +17,8 @@ export class CarritoPage implements OnInit {
   totalVENTA: number = 0; 
   wasaborrar: any[] = [];
   wasmalasaborrar: any[] = [];
+  private alertaMostrada: boolean = false; // Bandera para controlar una sola alerta
+
 
   constructor(
     private alertasService: AlertasService,
@@ -57,6 +59,10 @@ export class CarritoPage implements OnInit {
     if (!this.idVentaActiva) return;
   
     try {
+      // Eliminar productos sin stock automáticamente
+      await this.borrarProductosSinStock();
+  
+      // Obtener productos en el carrito después de eliminar los sin stock
       this.productos = await this.bd.obtenerCarroPorUsuario(this.idVentaActiva);
   
       // Separar productos sin stock y disponibles
@@ -115,18 +121,42 @@ export class CarritoPage implements OnInit {
 
   async borrarProductosSinStock() {
     try {
-      this.wasmalasaborrar = this.productosSinStock;
-      for (let producto of this.wasmalasaborrar) {
-        await this.bd.eliminarProductoDelCarrito(this.idVentaActiva, producto.id_producto);
+      // Consulta directa para obtener productos sin stock en el carrito actual
+      const query = `
+        SELECT d.id_producto, p.nombre_prod
+        FROM detalle d
+        JOIN producto p ON d.id_producto = p.id_producto
+        WHERE d.id_venta = ? AND (p.stock_prod = 0 OR p.estatus = 0);
+      `;
+
+      const result = await this.bd.database.executeSql(query, [this.idVentaActiva]);
+      const productosSinStockEnCarrito = [];
+
+      for (let i = 0; i < result.rows.length; i++) {
+        productosSinStockEnCarrito.push(result.rows.item(i));
       }
-      console.log('Productos sin stock eliminados del carrito');
-      await this.cargarProductos();  // Recargar productos
-      this.wasmalasaborrar = [];
-      this.alertasService.presentAlert('EXITO','Productos sin stock eliminados');
+
+      // Solo procede a eliminar y mostrar la alerta si hay productos sin stock en el carrito
+      if (productosSinStockEnCarrito.length > 0) {
+        for (let producto of productosSinStockEnCarrito) {
+          await this.bd.eliminarProductoDelCarrito(this.idVentaActiva, producto.id_producto);
+        }
+
+        // Muestra la alerta solo si no ha sido mostrada anteriormente
+        if (!this.alertaMostrada) {
+          this.alertasService.presentAlert('ÉXITO', 'Productos sin stock eliminados del carrito');
+          this.alertaMostrada = true; // Cambia la bandera para evitar futuras alertas
+        }
+      }
+
     } catch (error) {
-      this.alertasService.presentAlert('ERROR','Error al eliminar productos sin stock:' + error);
+      console.error('Error al eliminar productos sin stock del carrito:', error);
+      this.alertasService.presentAlert('ERROR', 'Error al eliminar productos sin stock: ' + error);
     }
   }
+
+  
+  
 
   async RestarStockAlComprar() {
     this.wasaborrar = this.productosDisponibles;
@@ -135,7 +165,6 @@ export class CarritoPage implements OnInit {
         await this.bd.restarStock(producto.id_producto, producto.cantidad_d);
       }
       await this.cargarProductos();  // Recargar productos
-      this.alertasService.presentAlert('EXITO', 'Stock restado correctamente');
       this.wasaborrar = [];
     } catch (error) {
       console.error('Error al eliminar productos sin stock:', error);
@@ -167,4 +196,6 @@ export class CarritoPage implements OnInit {
     await this.actualizarPrecioTotal();  // Actualizamos el total.
     await this.cargarProductos();
   }
+
+  
 }
