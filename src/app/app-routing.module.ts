@@ -177,9 +177,15 @@ const routes: Routes = [
     loadChildren: () => import('./pages/historialventas/historialventas.module').then( m => m.HistorialventasPageModule)
   },
   {
+    path: 'editarresecna',
+    loadChildren: () => import('./pages/editarresecna/editarresecna.module').then( m => m.EditarresecnaPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   },
+ 
+
   
 
   

@@ -24,12 +24,18 @@
         </ion-label>
       </ion-item>
 
-      <!-- Botón de eliminar reseña -->
+      <!-- Botones de eliminar y editar reseña -->
       <ion-row class="action-buttons">
         <ion-col>
           <ion-button color="danger" expand="block" (click)="eliminarResecna(resecnaa)">
             <ion-icon slot="start" name="trash"></ion-icon>
             Eliminar
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button color="primary" expand="block" routerLink="/editarresecna">
+            <ion-icon slot="start" name="create"></ion-icon>
+            Editar
           </ion-button>
         </ion-col>
       </ion-row>

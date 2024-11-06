@@ -1,0 +1,54 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/crudresecnas" text="Atrás" icon="arrow-back-outline"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar Reseña</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="editarresecna-container">
+    <ion-list>
+      <!-- Producto -->
+      <ion-item lines="none">
+        <ion-label position="floating">Producto</ion-label>
+        <ion-input [(ngModel)]="resecna.nombre_prod" disabled></ion-input>
+      </ion-item>
+
+      <!-- Usuario -->
+      <ion-item lines="none">
+        <ion-label position="floating">Usuario</ion-label>
+        <ion-input [(ngModel)]="resecna.username" disabled></ion-input>
+      </ion-item>
+
+      <!-- Reseña -->
+      <ion-item lines="none">
+        <ion-label position="floating">Reseña</ion-label>
+        <ion-textarea [(ngModel)]="resecna.text_resecna" disabled></ion-textarea>
+      </ion-item>
+
+      <!-- Estado -->
+<ion-item lines="none">
+  <ion-label position="floating">Estado</ion-label>
+  <mat-form-field appearance="outline" class="custom-mat-select">
+    <mat-select [(ngModel)]="resecna.estado" placeholder="Selecciona el estado">
+      <mat-option *ngFor="let estado of estados" [value]="estado.value">
+        {{ estado.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</ion-item>
+
+<!-- Motivo del Baneo -->
+<ion-item lines="none" *ngIf="resecna.estado === 'baneado'">
+  <ion-label position="floating">Motivo del Baneo</ion-label>
+  <ion-textarea [(ngModel)]="resecna.motivoBaneo" class="custom-motivo-textarea"></ion-textarea>
+</ion-item>
+
+      <ion-button expand="block" color="primary" class="boton" (click)="guardarCambios()">
+        Guardar Cambios
+      </ion-button>
+    </ion-list>
+  </div>
+</ion-content>

@@ -13,10 +13,13 @@ export class EditarusuarioPage implements OnInit {
 
   usuarioLlego: any;
   confirmarContrasena!: string;
-  estadoUserLlego: any; // Estado del usuario (activo / baneado)
-  rolUserLlego: any; // Rol del usuario (admin / cliente)
-  preguntaSeguridad: string = ''; // Almacena la pregunta de seguridad seleccionada
-  respuestaSeguridad: string = ''; // Almacena la respuesta a la pregunta de seguridad
+  estadoUserLlego: any;
+  rolUserLlego: any;
+  preguntaSeguridad: string = '';
+  respuestaSeguridad: string = '';
+
+  motivoBan: string = ''; // Variable para el motivo del ban
+  mostrarMotivoBan: boolean = false; // Controla la visibilidad de la caja de motivo
 
   // Variables de control para los mensajes de error
   errorCampos: boolean = false;
@@ -59,10 +62,9 @@ export class EditarusuarioPage implements OnInit {
         this.estadoUserLlego = this.usuarioLlego.estado_user?.toString();
         this.rolUserLlego = this.usuarioLlego.id_rol?.toString();
 
-        // Consultar la pregunta de seguridad y cargar la respuesta
         const preguntaSeguridad = await this.bd.consultarPreguntasSeguridad(this.usuarioLlego.id_usuario);
         if (preguntaSeguridad) {
-          this.preguntaSeguridad = 'colorFavorito'; // Valor por defecto, puedes ajustarlo según lo que traiga la BD
+          this.preguntaSeguridad = 'colorFavorito';
           this.respuestaSeguridad = preguntaSeguridad.respuesta_seguridad;
         }
       }
@@ -96,8 +98,25 @@ export class EditarusuarioPage implements OnInit {
     }
   }
 
+  onEstadoChange() {
+    this.mostrarMotivoBan = this.usuarioLlego.estado_user === '0';
+  }
+
+  cancelarBan() {
+    this.motivoBan = '';
+    this.mostrarMotivoBan = false;
+  }
+
+  confirmarBan() {
+    if (this.motivoBan.trim()) {
+      console.log('Motivo del ban confirmado:', this.motivoBan);
+      this.mostrarMotivoBan = false;
+    } else {
+      console.log('Debe ingresar un motivo para confirmar el ban.');
+    }
+  }
+
   async guardarCambios() {
-    // Reiniciar banderas de error antes de validar
     this.errorCampos = false;
     this.errorCorreo = false;
     this.errorContrasena = false;
@@ -105,7 +124,6 @@ export class EditarusuarioPage implements OnInit {
     this.errorUsuarioExistente = false;
     this.errorCorreoExistente = false;
 
-    // Verificar si algún campo está vacío
     if (!this.usuarioLlego.nombres_usuario || !this.usuarioLlego.apellidos_usuario || 
         !this.usuarioLlego.correo || !this.usuarioLlego.username || 
         !this.usuarioLlego.clave || !this.confirmarContrasena || 
@@ -115,34 +133,29 @@ export class EditarusuarioPage implements OnInit {
       return;
     }
 
-    // Validar el formato del correo
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(this.usuarioLlego.correo)) {
       this.errorCorreo = true;
       return;
     }
 
-    // Verificar si el usuario ya existe en la base de datos
     const usuarioExistente = await this.bd.verificarUsuarioExistente2(this.usuarioLlego.username);
     if (usuarioExistente && usuarioExistente.id_usuario !== this.usuarioLlego.id_usuario) {
       this.errorUsuarioExistente = true;
       return;
     }
 
-    // Validar el formato del RUT
     const rutPattern = /^\d{1,8}-[0-9kK]{1}$/;
     if (!rutPattern.test(this.usuarioLlego.rut_usuario)) {
       this.errorRut = true;
       return;
     }
 
-    // Verificar si las contraseñas coinciden
     if (this.usuarioLlego.clave !== this.confirmarContrasena) {
       this.errorContrasena = true;
       return;
     }
 
-    // Guardar los cambios en la base de datos
     try {
       await this.bd.modificarUsuarioConSeguridadAdmin(
         this.usuarioLlego.id_usuario,
@@ -155,7 +168,7 @@ export class EditarusuarioPage implements OnInit {
         this.usuarioLlego.foto_usuario,
         this.usuarioLlego.estado_user,
         this.usuarioLlego.id_rol,
-        this.respuestaSeguridad
+        this.respuestaSeguridad,
       );
       this.alertasService.presentAlert("Éxito", "Usuario modificado correctamente.");
       this.router.navigate(['/crudusuarios']);
