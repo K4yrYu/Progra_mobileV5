@@ -143,7 +143,8 @@ export class ManejodbService {
 
   //venta 
   listadoventa = new BehaviorSubject([]);
-  
+  listadoventasTotales = new BehaviorSubject([]);
+
   //detalle venta
   listadoDetalle_carrito = new BehaviorSubject([]);
   listadoDetalle_valid_stock_0 = new BehaviorSubject([]);
@@ -227,6 +228,11 @@ export class ManejodbService {
   fetchVenta(): Observable<Venta[]> {
     return this.listadoventa.asObservable();
   }
+
+  fetchVentasTotales(): Observable<Venta[]> {
+    return this.listadoventasTotales.asObservable();
+  }
+  
 
   fetchValidFavs(): Observable<Favsvan[]> {
     return this.listadoValidFavs.asObservable();
@@ -1522,8 +1528,16 @@ obtenerIdUsuarioLogueado() {
       INSERT INTO venta (fecha_venta, total, estado_retiro, id_usuario, id_estado) 
       VALUES (?, ?, ?, ?, ?);
     `;
-    const fechaHoy = new Date().toISOString();
-    const params = [fechaHoy, 0, 0, idUsuario, 1];  // Estado = 1
+  
+    const fechaHoy = new Date();
+    const año = fechaHoy.getFullYear();
+    const mes = String(fechaHoy.getMonth() + 1).padStart(2, '0');  // Mes empieza en 0, por lo que sumamos 1
+    const dia = String(fechaHoy.getDate()).padStart(2, '0');
+    const hora = String(fechaHoy.getHours()).padStart(2, '0');
+    const minutos = String(fechaHoy.getMinutes()).padStart(2, '0');
+  
+    const fechaFormateada = `${año}-${mes}-${dia} ${hora}:${minutos}`;
+    const params = [fechaFormateada, 0, 0, idUsuario, 1];  // Estado = 1
   
     try {
       const res = await this.database.executeSql(queryCrear, params);
@@ -1781,6 +1795,58 @@ obtenerIdUsuarioLogueado() {
     }
   }
   
+  //////////////////////////////////////////////////////////////////////////////////
+
+  ///////////////////LISTADO DE VENTAS TOTALES DE LA APP////////////////////////////
+
+
+  async CosultarVentasTotales() {
+    const query = `
+      SELECT 
+        v.id_venta,
+        v.fecha_venta,
+        v.total,
+        v.estado_retiro,
+        u.username,
+        v.id_usuario,
+        v.id_estado
+      FROM 
+        venta v
+      INNER JOIN 
+        usuario u ON v.id_usuario = u.id_usuario
+      WHERE 
+        v.id_estado = 2;
+    `;
+  
+    try {
+      const res = await this.database.executeSql(query, []);
+      
+      // Variable para almacenar los resultados de la consulta
+      let itemsV: Venta[] = [];
+  
+      // Verificar si hay registros
+      if (res.rows.length > 0) {
+        for (let i = 0; i < res.rows.length; i++) {
+          // Agregar cada registro a la lista
+          itemsV.push({
+            id_venta: res.rows.item(i).id_venta,
+            fecha_venta: res.rows.item(i).fecha_venta,
+            total: res.rows.item(i).total,
+            estado_retiro: res.rows.item(i).estado_retiro,
+            username: res.rows.item(i).username,  
+            id_usuario: res.rows.item(i).id_usuario,
+            id_estado: res.rows.item(i).id_estado
+          });
+        }
+      }
+      // Emitir los resultados mediante el observable
+      this.listadoventasTotales.next(itemsV as any);
+      return itemsV;
+    } catch (error) {
+      console.error('Error al consultar retiros:', error);
+      throw error;
+    }
+  }
 
 
   //////////////////////////////////////////////////////////////////////////////////

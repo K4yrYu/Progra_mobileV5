@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ManejodbService } from 'src/app/services/manejodb.service';
 
 @Component({
   selector: 'app-historialventas',
@@ -7,9 +8,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistorialventasPage implements OnInit {
 
-  constructor() { }
+  idUserLoggeao!: any;
 
-  ngOnInit() {
+  arregloVentasTotales: any = [
+    {
+      id_venta: '',
+      fecha_venta: '',
+      total: '',
+      estado_retiro: '',
+      username: '',
+      id_usuario: '',
+      id_estado: '',
+    }
+  ]
+
+  constructor(private bd: ManejodbService) { } // Inyección del servicio de alertas
+
+  async ionViewWillEnter() {
+    await this.cargarRetiros();
+  }
+
+  async ngOnInit() {
+    await this.cargarRetiros();
+  }
+
+  async cargarRetiros(){
+    this.idUserLoggeao = '';
+    this.idUserLoggeao = await this.bd.obtenerIdUsuarioLogueado();
+    this.arregloVentasTotales = await this.bd.CosultarVentasTotales();
   }
 
 }
