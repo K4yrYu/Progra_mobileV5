@@ -279,6 +279,7 @@ export class ManejodbService {
       await this.database.executeSql(this.resecna, []);
       await this.database.executeSql(this.favoritos, []);
       await this.database.executeSql(this.seguridad, []);
+      await this.database.executeSql(this.suspencion, []);
 
       // Verificar si ya existe el usuario 'admin'
       const res = await this.database.executeSql('SELECT * FROM usuario WHERE username = "admin"', []);
