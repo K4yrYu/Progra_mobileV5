@@ -16,6 +16,7 @@ export class CarritoPage implements OnInit {
   mostrarSinStock: boolean = true;
   totalVENTA: number = 0; 
   wasaborrar: any[] = [];
+  wasmalasaborrar: any[] = [];
 
   constructor(
     private alertasService: AlertasService,
@@ -59,8 +60,7 @@ export class CarritoPage implements OnInit {
       this.productos = await this.bd.obtenerCarroPorUsuario(this.idVentaActiva);
   
       // Separar productos sin stock y disponibles
-      //this.productosSinStock = this.productos.filter(p => p.estatus === 0); estatus = 0 productos no disponibles, config mañana
-      this.productosSinStock = this.productos.filter(p => p.cantidad_d === 0);
+      this.productosSinStock = this.productos.filter(p => p.estatus === 0); 
       this.productosDisponibles = this.productos.filter(p => p.cantidad_d > 0);
   
       // Determinar si mostrar la sección de sin stock
@@ -101,14 +101,16 @@ export class CarritoPage implements OnInit {
 
   async borrarProductosSinStock() {
     try {
-      for (let producto of this.productosSinStock) {
+      this.wasmalasaborrar = this.productosSinStock;
+      for (let producto of this.wasmalasaborrar) {
         await this.bd.eliminarProductoDelCarrito(this.idVentaActiva, producto.id_producto);
       }
       console.log('Productos sin stock eliminados del carrito');
       await this.cargarProductos();  // Recargar productos
-      this.alertasService.presentAlert('Productos sin stock eliminados', '');
+      this.wasmalasaborrar = [];
+      this.alertasService.presentAlert('EXITO','Productos sin stock eliminados');
     } catch (error) {
-      console.error('Error al eliminar productos sin stock:', error);
+      this.alertasService.presentAlert('ERROR','Error al eliminar productos sin stock:' + error);
     }
   }
 
@@ -147,8 +149,8 @@ export class CarritoPage implements OnInit {
     await this.RestarStockAlComprar();
     const idUsuario = await this.bd.obtenerIdUsuarioLogueado();
     await this.bd.confirmarCompra(this.idVentaActiva, idUsuario, this.totalVENTA);
+    await this.bd.ActualizarStock();
     await this.actualizarPrecioTotal();  // Actualizamos el total.
     await this.cargarProductos();
-    
   }
 }

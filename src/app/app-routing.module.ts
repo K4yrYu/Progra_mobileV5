@@ -173,9 +173,15 @@ const routes: Routes = [
     loadChildren: () => import('./pages/validretiro/validretiro.module').then( m => m.ValidretiroPageModule)
   },
   {
+    path: 'historialventas',
+    loadChildren: () => import('./pages/historialventas/historialventas.module').then( m => m.HistorialventasPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   },
+  
+
   
 
 

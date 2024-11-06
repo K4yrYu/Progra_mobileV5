@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ManejodbService } from 'src/app/services/manejodb.service';
 import { CamaraService } from 'src/app/services/camara.service'; // Importa el servicio
+import { AlertasSilenciosasService } from 'src/app/services/alertasilenciosa.service';
 
 @Component({
   selector: 'app-agregarjuego',
@@ -19,11 +20,13 @@ export class AgregarjuegoPage implements OnInit {
   errorPrecio: boolean = false;
   errorStock: boolean = false;
   errorImagen: boolean = false;
+  NoDisponible: boolean = false;
 
   constructor(
     private router: Router,
     private bd: ManejodbService,
-    private camaraService: CamaraService // Inyecta el servicio
+    private camaraService: CamaraService, // Inyecta el servicio
+    private silentAlert: AlertasSilenciosasService
   ) {}
 
   ngOnInit() {}
@@ -47,14 +50,23 @@ export class AgregarjuegoPage implements OnInit {
       return;
     }
 
+
     // Intentar agregar el juego
     try {
       await this.bd.agregarJuegos(this.nombre, this.precio, this.stock, this.descripcion, this.urlImagen);
+      this.Stock0NoDisponible();
       this.router.navigate(['/crudjuegos']);
     } catch (error) {
       console.error('Error al agregar el juego:', error);
       // Aquí puedes mostrar una alerta o manejar el error de otra manera
     }
+  }
+
+  async Stock0NoDisponible () {
+    if (this.stock === 0) {
+      //stock es 0
+      this.silentAlert.presentSilentToast("Producto Cambiado a No disponible automaticamente. Razon: Stock = 0", 5000)
+    } 
   }
 
   private resetErrores() {

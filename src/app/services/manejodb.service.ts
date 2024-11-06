@@ -952,11 +952,25 @@ async eliminarUsuarios(idU: any) {
         return; // No se agrega si ya existe
       }
 
-      // Ejecutar la consulta para agregar el juego
+      /* Ejecutar la consulta para agregar el juego
       await this.database.executeSql(
         'INSERT OR IGNORE INTO producto (nombre_prod, precio_prod, stock_prod, descripcion_prod, foto_prod, estatus, id_categoria) VALUES (?, ?, ?, ?, ?, 1, 1);',
         [nombre_prod, precio_prod, stock_prod, descripcion_prod, foto_prod]
-      );
+      ); */
+
+      if (stock_prod === 0) {
+        // Ejecutar la consulta para agregar el juego con estatus 2 si stock_prod es 0
+        await this.database.executeSql(
+          'INSERT OR IGNORE INTO producto (nombre_prod, precio_prod, stock_prod, descripcion_prod, foto_prod, estatus, id_categoria) VALUES (?, ?, ?, ?, ?, 0, 1);',
+          [nombre_prod, precio_prod, stock_prod, descripcion_prod, foto_prod]
+        );
+      } else {
+        // Ejecutar la consulta para agregar el juego con estatus 1 si stock_prod es mayor que 0
+        await this.database.executeSql(
+          'INSERT OR IGNORE INTO producto (nombre_prod, precio_prod, stock_prod, descripcion_prod, foto_prod, estatus, id_categoria) VALUES (?, ?, ?, ?, ?, 1, 1);',
+          [nombre_prod, precio_prod, stock_prod, descripcion_prod, foto_prod]
+        );
+      }
 
       // Presentar alerta solo si se agregó el juego
       this.alertasService.presentAlert("Agregar", "Juego Agregado");
@@ -1671,6 +1685,28 @@ obtenerIdUsuarioLogueado() {
       throw error;
     }
   }
+
+  /*----------------Actualizado del stock = 0 a no disponible------------------------*/
+
+  async ActualizarStock(): Promise<void> {
+    try {
+      // Ejecutar la consulta para modificar el stock
+      await this.database.executeSql(
+        'UPDATE producto SET estatus = ? WHERE stock_prod = 0',
+        [0]
+      );
+  
+      // Presentar alerta si se modificaron los stock de producto
+      this.alertasService.presentAlert("Actualizacion", "Stock de productos Actualizado");
+      await this.consultarJuegos();
+      await this.consultarJuguetes();
+      await this.consultarConsolas();
+    } catch (e) {
+      this.alertasService.presentAlert("Actualizar Stock", "Error: " + JSON.stringify(e));
+    }
+  }
+
+  /*--------------------------------------------------------------------------------*/
   ///////////////////////////////////////////////////////////////////////////////////
 
   //////////////////////////////CRUD RETIROS////////////////////////////////////////
