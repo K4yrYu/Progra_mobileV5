@@ -20,11 +20,13 @@ export class RegistroPage implements OnInit {
   preguntaSeleccionada: string = ''; // Campo para la pregunta seleccionada
   mensajesValidacion: string = '';
 
+
+  //el valor va directamente en la base de datos y es lo que literalmente vera el usuario 
   preguntasSeguridad = [
-    { value: '1', viewValue: '¿Cuál es tu color favorito?' },
-    { value: '2', viewValue: '¿Cuál es tu comida favorita?' },
-    { value: '3', viewValue: '¿Nombre de tu mascota?' },
-    { value: '4', viewValue: '¿Tu comuna actual?' },
+    { value: '¿Cuál es tu color favorito?', viewValue: '¿Cuál es tu color favorito?' },
+    { value: '¿Cuál es tu comida favorita?', viewValue: '¿Cuál es tu comida favorita?' },
+    { value: '¿Nombre de tu mascota?', viewValue: '¿Nombre de tu mascota?' },
+    { value: '¿Tu comuna actual?', viewValue: '¿Tu comuna actual?' },
   ];
 
   arregloUsuarios: any[] = [];
@@ -56,7 +58,7 @@ export class RegistroPage implements OnInit {
 
     if (errores.length === 0) {
       // Si no hay errores, proceder con el registro
-      this.bd.agregarUsuariosCliente(this.rut, this.nombres, this.apellidos, this.usuario, this.contrasena, this.correo, this.respuesta, ); // Pasar respuesta y pregunta de seguridad
+      this.bd.agregarUsuariosCliente(this.rut, this.nombres, this.apellidos, this.usuario, this.contrasena, this.correo, this.preguntaSeleccionada, this.respuesta, ); // Pasar respuesta y pregunta de seguridad
       this.router.navigate(['/login']);
       this.reiniciarCampos(); // Reiniciar campos después del registro
     }

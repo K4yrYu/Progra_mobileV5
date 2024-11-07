@@ -181,9 +181,15 @@ const routes: Routes = [
     loadChildren: () => import('./pages/editarresecna/editarresecna.module').then( m => m.EditarresecnaPageModule)
   },
   {
+    path: 'seguridadusuario',
+    loadChildren: () => import('./pages/seguridadusuario/seguridadusuario.module').then( m => m.SeguridadusuarioPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   },
+  
+
  
 
   

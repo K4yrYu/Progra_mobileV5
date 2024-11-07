@@ -49,11 +49,12 @@ export class AgregarusuarioPage {
     { value: '0', viewValue: 'Baneado' },
   ];
 
+  //el valor va directamente en la base de datos y es lo que literalmente vera el usuario 
   preguntasSeguridad = [
-    { value: '1', viewValue: '¿Cuál es tu color favorito?' },
-    { value: '2', viewValue: '¿Cuál es tu comida favorita?' },
-    { value: '3', viewValue: '¿ Nombre de tu mascota?' },
-    { value: '4', viewValue: '¿Tu comuna actual?' },
+    { value: '¿Cuál es tu color favorito?', viewValue: '¿Cuál es tu color favorito?' },
+    { value: '¿Cuál es tu comida favorita?', viewValue: '¿Cuál es tu comida favorita?' },
+    { value: '¿Nombre de tu mascota?', viewValue: '¿Nombre de tu mascota?' },
+    { value: '¿Tu comuna actual?', viewValue: '¿Tu comuna actual?' },
   ];
 
   errorCampos: boolean = false;
@@ -162,6 +163,7 @@ export class AgregarusuarioPage {
       this.usuario.estado,
       this.usuario.rol,
       this.usuario.preguntaSeguridad,
+      this.respuestaSeguridad,
     );
 
     this.router.navigate(['/crudusuarios']);

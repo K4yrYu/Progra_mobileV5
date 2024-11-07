@@ -636,7 +636,7 @@ export class ManejodbService {
 
  // Añadir usuario cliente (REGISTRO)
 // Añadir usuario cliente (REGISTRO)
-async agregarUsuariosCliente(rutU: any, nombresU: any, apellidosU: any, userU: any, claveU: any, correoU: any, respuestaSeguridad: string) {
+async agregarUsuariosCliente(rutU: any, nombresU: any, apellidosU: any, userU: any, claveU: any, correoU: any, pregunta_seguridad: any, respuestaSeguridad: string) {
   try {
     // Lógica para agregar usuarios, aplicando trim() solo en los campos de texto
     const result = await this.database.executeSql(
@@ -654,7 +654,7 @@ async agregarUsuariosCliente(rutU: any, nombresU: any, apellidosU: any, userU: a
     if (userId) {
       await this.database.executeSql(
         'INSERT OR IGNORE INTO seguridad (pregunta_seguridad, respuesta_seguridad, id_usuario) VALUES (?, ?, ?)', 
-        ['¿cual es su color favorito?', respuestaSeguridad, userId.id_usuario]
+        [pregunta_seguridad, respuestaSeguridad, userId.id_usuario]
       );
     }
 
@@ -677,6 +677,7 @@ async agregarUsuariosAdmin(
   fotoU: any,
   estadoU: any,
   id_rolU: any,
+  pregunta_seguridad: any,
   respuestaSeguridad: any // Nueva variable para la respuesta de seguridad
 ) {
   try {
@@ -713,7 +714,7 @@ async agregarUsuariosAdmin(
     // Agregar la respuesta de seguridad
     await this.database.executeSql(
       'INSERT INTO seguridad (pregunta_seguridad, respuesta_seguridad, id_usuario) VALUES (?, ?, ?)',
-      ['¿Cuál es tu color favorito?', respuestaSeguridad, idUsuario]
+      [pregunta_seguridad, respuestaSeguridad, idUsuario]
     );
 
     // Presentar alerta solo si se agregó el usuario
@@ -2044,6 +2045,116 @@ async validarRespuestaSeguridad(username: string, respuesta: string): Promise<bo
     }
   }
   
+  /////////////////////////////////////////////////////////////////////////////////////
+
   
+  //////////////////////////CRUD DE SUSPENCION////////////////////////////////////////
+
+  //no sera necesario traer todas las suspenciones, pero si quedara una base
+  
+
+  //verificara a las reseñas suspendidas, (nose mostraran, pero seguiran existiendo)
+  async consultarResecnasSuspendidas() {
+    return this.database.executeSql('SELECT * FROM suspencion WHERE id_resecna = ?', []).then(res => {
+      //variable para almacenar el resultado de la consulta
+      let itemsSR: Suspencionresecna[] = [];
+      //verificar si hay registros en la consulta
+      if (res.rows.length > 0) {
+        //se recorren los resultados
+        for (var i = 0; i < res.rows.length; i++) {
+          //se agrega el registro a mi variable (itemsU)
+          itemsSR.push({
+            id_suspencion: res.rows.item(i).id_suspencion, 
+            motivo_suspencion: res.rows.item(i).motivo_suspencion, 
+            suspendido: res.rows.item(i).suspendido, 
+            id_usuario: res.rows.item(i).id_usuario, 
+            id_resecna: res.rows.item(i).id_resecna
+          })
+        }
+        this.listadoSuspencionResecnas.next(itemsSR as any);
+        return itemsSR;
+      } else {
+        return null;
+      }
+      
+    })
+  }
+
+  //insertar una nueva suspencion
+  async agregarMotivoSuspencionResecna(iduser: any, idRsn: any, motivoSUS: any) {
+    try {
+      // Lógica para agregar usuarios, aplicando trim() solo en los campos de texto
+      await this.database.executeSql(
+        'INSERT OR IGNORE INTO suspencion (motivo_suspencion, suspendido, id_usuario, id_resecna) VALUES (?, 1, ?, ?)', 
+        [motivoSUS, iduser, idRsn]
+      );
+  
+      // Se añade la alerta
+      this.alertasService.presentAlert("EXITO", "Usuario Suspendido");
+  
+      // Se llama al select para mostrar la lista actualizada
+      this.consultarMotivoSuspencionUsuario();
+    } catch (e) {
+      this.alertasService.presentAlert("Suspender Usuario", "Error: " + JSON.stringify(e));
+    }
+  }
+
+
+  //*****************************************************/
+
+
+  //se verificara el motivo de baneo del usuario, asi mismo este registro tendra id_resecna en null.
+  async consultarMotivoSuspencionUsuario() {
+    return this.database.executeSql('SELECT * FROM suspencion WHERE id_usuario = ?', []).then(res => {
+      //variable para almacenar el resultado de la consulta
+      let itemsSU: Suspencionusuario[] = [];
+      //verificar si hay registros en la consulta
+      if (res.rows.length > 0) {
+        //se recorren los resultados
+        for (var i = 0; i < res.rows.length; i++) {
+          //se agrega el registro a mi variable (itemsU)
+          itemsSU.push({
+            id_suspencion: res.rows.item(i).id_suspencion, 
+            motivo_suspencion: res.rows.item(i).motivo_suspencion, 
+            suspendido: res.rows.item(i).suspendido, 
+            id_usuario: res.rows.item(i).id_usuario, 
+            id_resecna: res.rows.item(i).id_resecna
+          })
+        }
+        this.listadoSuspencionUsuarios.next(itemsSU as any);
+        return itemsSU;
+      } else {
+        return null;
+      }
+      
+      
+    })
+  }
+
+  //al suspender un usuario, se insertara el motivo, y se mostrara en pantalla para que este conozca
+  //el por que de su suspencion
+  async agregarMotivoSuspencionUsuario(iduser: any, motivoSUS: any) {
+    try {
+      // Lógica para agregar usuarios, aplicando trim() solo en los campos de texto
+      await this.database.executeSql(
+        'INSERT OR IGNORE INTO suspencion (motivo_suspencion, suspendido, id_usuario, id_resecna) VALUES (?, 1, ?, null)', 
+        [motivoSUS, iduser]
+      );
+  
+      // Se añade la alerta
+      this.alertasService.presentAlert("EXITO", "Usuario Suspendido");
+  
+      // Se llama al select para mostrar la lista actualizada
+      this.consultarMotivoSuspencionUsuario();
+    } catch (e) {
+      this.alertasService.presentAlert("Suspender Usuario", "Error: " + JSON.stringify(e));
+    }
+  }
+
+  //
+  
+
+  
+  /////////////////////////////////////////////////////////////////////////////////////
   
 }
