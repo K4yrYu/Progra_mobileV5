@@ -29,22 +29,22 @@
       </ion-item>
 
       <!-- Estado -->
-<ion-item lines="none">
-  <ion-label position="floating">Estado</ion-label>
-  <mat-form-field appearance="outline" class="custom-mat-select">
-    <mat-select [(ngModel)]="resecna.estado" placeholder="Selecciona el estado">
-      <mat-option *ngFor="let estado of estados" [value]="estado.value">
-        {{ estado.viewValue }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</ion-item>
+      <ion-item lines="none">
+        <ion-label>Estado</ion-label>
+        <mat-form-field appearance="outline" class="custom-mat-select">
+          <mat-select [(ngModel)]="resecna.estado" placeholder="Selecciona el estado">
+            <mat-option *ngFor="let estado of estados" [value]="estado.value">
+              {{ estado.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ion-item>
 
-<!-- Motivo del Baneo -->
-<ion-item lines="none" *ngIf="resecna.estado === 'baneado'">
-  <ion-label position="floating">Motivo del Baneo</ion-label>
-  <ion-textarea [(ngModel)]="resecna.motivoBaneo" class="custom-motivo-textarea"></ion-textarea>
-</ion-item>
+       <!-- Motivo del Baneo -->
+       <ion-item lines="none" *ngIf="resecna.estado === 'baneado'">
+        <ion-label class="motivo-label" position="floating">Motivo del Baneo</ion-label>
+        <ion-textarea [(ngModel)]="resecna.motivoBaneo" class="custom-motivo-textarea"></ion-textarea>
+      </ion-item>
 
       <ion-button expand="block" color="primary" class="boton" (click)="guardarCambios()">
         Guardar Cambios

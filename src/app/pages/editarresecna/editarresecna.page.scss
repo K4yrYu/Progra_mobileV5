@@ -24,25 +24,30 @@ ion-list ion-item {
     padding-bottom: 10px; /* Espacio adicional debajo de cada ion-item */
 }
 
-/* Estilo para los campos de entrada ion-input y ion-textarea */
-ion-input, ion-textarea {
-    --background: transparent !important; /* Fondo transparente para los campos de entrada */
+/* Estilo para los campos de entrada ion-input, ion-textarea y mat-select con bordes */
+ion-input, ion-textarea, .custom-mat-select .mat-select-trigger {
+    --background: transparent !important; /* Fondo transparente */
     --color: #ffffff; /* Texto blanco */
-    border: 2px solid rgba(0, 0, 0, 0.3); /* Borde sutil para los campos de entrada */
+    border: 2px solid rgba(255, 255, 255, 0.5); /* Borde blanco semi-transparente */
     padding: 10px !important; /* Espacio interno uniforme */
     width: calc(100% - 30px); /* Ajuste de ancho */
     border-radius: 5px; /* Bordes redondeados */
+    font-size: 1.1em; /* Tamaño del texto */
     margin-top: 5px; /* Espacio extra entre el label y el input */
-    font-size: 1.1em; /* Tamaño del texto dentro del input */
-    margin-left: 20px; /* Añade separación entre label e input */
+    margin-left: 20px;
 }
 
 /* Estilo para las etiquetas ion-label */
 ion-label {
     --color: #ffffff; /* Texto blanco */
-    font-size: 1.2em; /* Tamaño más grande para mayor claridad */
-    margin-bottom: 10px; /* Espacio debajo de la etiqueta */
-    margin-right: 10px; /* Añade margen entre label e input */
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+/* Estilo específico para la etiqueta de "Motivo del Baneo" */
+.motivo-label {
+    margin-bottom: 15px; /* Mayor separación específica para esta etiqueta */
 }
 
 /* Estilo general del formulario */
@@ -60,53 +65,3 @@ ion-list {
     margin-top: 15px; /* Espacio entre los botones */
     border-radius: 8px;
 }
-
-/* Estilo para el mat-select en ion-item */
-ion-item mat-select {
-    flex-grow: 1; /* Hace que el mat-select ocupe todo el espacio sobrante en el ion-item */
-    margin-left: 20px; /* Añade separación entre el label y el mat-select */
-    --mat-background: transparent; /* Fondo transparente */
-    color: #ffffff; /* Texto blanco */
-    border: 2px solid #ffffff; /* Borde blanco */
-    border-radius: 10px; /* Bordes redondeados */
-    padding: 8px; /* Padding interno */
-    margin-top: 5px; /* Consistencia con el espaciado de otros inputs */
-}
-
-/* Estilo para las opciones dentro del mat-select */
-.mat-select-panel {
-    background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro con transparencia */
-    color: #ffffff; /* Texto blanco */
-}
-
-/* Estilo para las opciones seleccionadas */
-.mat-option.mat-selected {
-    background-color: #007bff !important; /* Color azul brillante para opción seleccionada */
-    color: #ffffff !important; /* Texto blanco */
-}
-
-/* Estilo para las opciones hover */
-.mat-option:hover {
-    background-color: rgba(0, 123, 255, 0.5) !important; /* Efecto hover azul brillante con transparencia */
-}
-
-/* Icono de flecha en mat-select */
-.mat-select-arrow {
-    color: #ffffff; /* Icono de flecha blanco */
-}
-
-.editarresecna-container {
-    padding: 16px !important;
-  }
-  
-  .custom-mat-select .mat-form-field-outline {
-    border-color: transparent !important;
-  }
-  
-  .custom-motivo-textarea {
-    margin-top: 16px !important;
-  }
-  
-  .boton {
-    margin-top: 24px !important;
-  }
