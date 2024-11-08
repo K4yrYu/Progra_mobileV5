@@ -1,0 +1,59 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Cambio Clave</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="spacer"></div>
+
+  <div class="cambio-container">
+    <ion-list> 
+
+      <!-- Campo de Contraseña Actual (se oculta después de la verificación) -->
+      <div *ngIf="!claveCorrecta">
+        <ion-item class="input-item">
+          <ion-label class="input-label" position="stacked">Contraseña Actual</ion-label>
+          <ion-input type="password" [(ngModel)]="claveActual" class="input-field">
+            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+          </ion-input>
+        </ion-item>
+        <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+        <!-- Botón para verificar la contraseña actual -->
+        <ion-button expand="block" (click)="verificarContrasenaActual()">
+          Verificar Contraseña Actual
+        </ion-button>
+      </div>
+
+      <!-- Campos de Nueva Contraseña y Confirmación (solo se muestran si la contraseña actual es válida) -->
+      <div *ngIf="claveCorrecta">
+        <ion-item class="input-item">
+          <ion-label class="input-label" position="stacked">Nueva Contraseña</ion-label>
+          <ion-input type="password" [(ngModel)]="claveNueva" class="input-field">
+            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+          </ion-input>
+        </ion-item>
+
+        <ion-item class="input-item">
+          <ion-label class="input-label" position="stacked">Confirmar Nueva Contraseña</ion-label>
+          <ion-input type="password" [(ngModel)]="confirmPassword" class="input-field">
+            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+          </ion-input>
+        </ion-item>
+
+        <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+        <!-- Botón para cambiar la contraseña -->
+        <ion-button expand="block" (click)="cambiarContrasena()">
+          Realizar Cambio De Contraseña
+        </ion-button>
+      </div>
+
+      <!-- Botón de Cancelar -->
+      <ion-button expand="block" (click)="cancelar()">
+        Cancelar
+      </ion-button>
+    </ion-list>
+  </div>
+</ion-content>

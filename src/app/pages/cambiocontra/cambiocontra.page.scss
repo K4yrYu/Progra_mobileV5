@@ -1,0 +1,64 @@
+/* Fondo general del contenido con gradiente */
+ion-content {
+    --background: none;
+    background: linear-gradient(to bottom right, #121212, #007bff); /* Degradado de gris oscuro a azul brillante */
+}
+
+/* Contenedor principal */
+.cambio-container {
+    background: transparent !important; /* Fondo completamente transparente */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Lista y otros contenedores */
+ion-list {
+    background: transparent !important; /* Fondo totalmente transparente */
+}
+
+.input-item {
+    background: transparent !important; /* Fondo totalmente transparente */
+    --background: transparent !important;
+    --border-color: rgba(255, 255, 255, 0.5); /* Borde blanco semi-transparente */
+    border: 1px solid rgba(255, 255, 255, 0.5); /* Borde alrededor de los campos de entrada */
+    border-radius: 8px;
+    margin-bottom: 16px;
+    padding-top: 8px; /* Espacio superior para separación visual */
+}
+
+/* Estilo de etiquetas */
+.input-label {
+    --color: #ffffff; /* Texto en blanco */
+    font-size: 1.2em; /* Aumenta el tamaño de la etiqueta */
+    margin-bottom: 4px; /* Espacio adicional para separación de la caja de entrada */
+}
+
+/* Texto en campos de entrada */
+.input-field {
+    --color: #ffffff; /* Texto en blanco */
+    background: transparent !important; /* Fondo de input transparente */
+}
+
+/* Icono de ojo */
+ion-icon {
+    color: #ffffff; /* Icono en blanco para el botón de mostrar/ocultar contraseña */
+}
+
+/* Mensaje de error */
+.error-message {
+    color: #ff4d4d; /* Rojo claro para el mensaje de error */
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Botones */
+ion-button {
+    --background: #007bff; /* Fondo azul sólido para destacar */
+    --color: white; /* Texto en blanco */
+    --border-radius: 8px;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Sombra sutil */
+}
+
+ion-button:hover {
+    --background: #0056b3; /* Azul más oscuro al pasar el mouse */
+}

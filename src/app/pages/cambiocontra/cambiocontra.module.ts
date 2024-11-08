@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SeguridadusuarioPageRoutingModule } from './seguridadusuario-routing.module';
+import { CambiocontraPageRoutingModule } from './cambiocontra-routing.module';
 
-import { SeguridadusuarioPage } from './seguridadusuario.page';
+import { CambiocontraPage } from './cambiocontra.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SeguridadusuarioPageRoutingModule
+    CambiocontraPageRoutingModule
   ],
-  declarations: [SeguridadusuarioPage]
+  declarations: [CambiocontraPage]
 })
-export class SeguridadusuarioPageModule {}
+export class CambiocontraPageModule {}
