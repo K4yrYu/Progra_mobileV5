@@ -12,7 +12,6 @@ import { ManejodbService } from 'src/app/services/manejodb.service';
 export class EditarusuarioPage implements OnInit {
 
   usuarioLlego: any;
-  confirmarContrasena!: string;
   estadoUserLlego: any;
   rolUserLlego: any;
   preguntaSeguridad: string = '';
@@ -56,7 +55,7 @@ export class EditarusuarioPage implements OnInit {
     this.activedroute.queryParams.subscribe(async res => {
       if (this.router.getCurrentNavigation()?.extras.state) {
         this.usuarioLlego = { ...this.router.getCurrentNavigation()?.extras?.state?.['usuarioSelect'] };
-        this.confirmarContrasena = this.usuarioLlego.clave;
+        this.usuarioLlego.clave;
 
         // Asignar estado y rol al usuario cargado
         this.estadoUserLlego = this.usuarioLlego.estado_user?.toString();
@@ -126,7 +125,7 @@ export class EditarusuarioPage implements OnInit {
 
     if (!this.usuarioLlego.nombres_usuario || !this.usuarioLlego.apellidos_usuario || 
         !this.usuarioLlego.correo || !this.usuarioLlego.username || 
-        !this.usuarioLlego.clave || !this.confirmarContrasena || 
+        !this.usuarioLlego.clave || 
         !this.usuarioLlego.id_rol || this.usuarioLlego.estado_user === undefined || 
         !this.usuarioLlego.rut_usuario || !this.respuestaSeguridad) {
       this.errorCampos = true;
@@ -148,11 +147,6 @@ export class EditarusuarioPage implements OnInit {
     const rutPattern = /^\d{1,8}-[0-9kK]{1}$/;
     if (!rutPattern.test(this.usuarioLlego.rut_usuario)) {
       this.errorRut = true;
-      return;
-    }
-
-    if (this.usuarioLlego.clave !== this.confirmarContrasena) {
-      this.errorContrasena = true;
       return;
     }
 

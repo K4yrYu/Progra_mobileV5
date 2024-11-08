@@ -50,20 +50,6 @@
                    required></ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-label position="stacked">Contraseña</ion-label>
-        <ion-input [(ngModel)]="usuarioLlego.clave" class="custom-input" type="password">
-          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-        </ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="stacked">Confirmar Contraseña</ion-label>
-        <ion-input [(ngModel)]="confirmarContrasena" class="custom-input" type="password">
-          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-        </ion-input>
-      </ion-item>
-
       <ion-item style="margin: 5px 0;">
         <p></p>
       </ion-item>
@@ -116,7 +102,6 @@
       <p *ngIf="errorCampos" class="error-message">
         Todos los campos son obligatorios. Por favor, completa todos los campos.
       </p>
-      <p *ngIf="errorContrasena" class="error-message">Las contraseñas no coinciden.</p>
       <p *ngIf="errorCorreo" class="error-message">El formato del correo es incorrecto.</p>
       <p *ngIf="errorRut" class="error-message">El formato del RUT es incorrecto.</p>
     </ion-list>
